@@ -5,8 +5,16 @@ import Player from './player';
 class GumBallAttack {
     constructor(ctx) {
         this.ctx = ctx;
-        
+
         this.gumball = new Gumball(ctx);
+    }
+
+    renderGame() {
+        const ctx = this.ctx;
+        const gumball = this.gumball;
+
+        gumball.draw(ctx);
+        requestAnimationFrame(draw)
     }
     
 }

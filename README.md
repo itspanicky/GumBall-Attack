@@ -41,13 +41,21 @@ When the game is over, a replay button will render.
 
 ## Implementation and Timeline
 #### Day 1:
-- Board design
+- File setup
+- Board layout
+    - Background
+    - Sprites
+- Gumball rendering
 #### Day 2:
 - Avatar rendering and functionality
+    - Movement
 - Gumball rendering
 #### Day 3:
 - Gumball functionality
+    - Bounce
+    - Collisions
 - Projectile rendering and functionality
+    - Collisions
 #### Day 4:
 - Score rendering
 - Finish game

@@ -4,7 +4,8 @@
   "description": "## Background and Overview GumBall Attack is a simple game with basic controls. The gameplay involves controlling a character left or right while dodging bouncing giant gumballs. The character can also shoot projectiles straight up, which on impact with a gumball will split the gumball into two smaller gumballs.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --watch --mode=development"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/itspanicky/GumBall-Attack/issues"
   },
-  "homepage": "https://github.com/itspanicky/GumBall-Attack#readme"
+  "homepage": "https://github.com/itspanicky/GumBall-Attack#readme",
+  "devDependencies": {
+    "webpack-cli": "^3.3.4"
+  }
 }
