@@ -5,10 +5,14 @@ class Board {
     }
 
     background() {
-        const ctx = this.ctx;
+        // const ctx = this.ctx;
 
-        ctx.fillStyle = "black";
-        ctx.fillRect(0, 0, 450, 450);
+        // ctx.fillStyle = "black";
+        // ctx.fillRect(0, 0, 450, 450);
+    }
+
+    render() {
+        
     }
 }
 

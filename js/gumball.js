@@ -1,55 +1,60 @@
 
 class Gumball {
-    constructor(gameWidth, gameHeight) {
+    constructor(ctx, canvas) {
+        this.ctx = ctx;
+        this.gameWidth = canvas.gameWidth;
+        this.gameHeight = canvas.gameHeight;
+        
         this.ballRadius = 80;
+
+        this.position = {
+            x: 100,
+            y: 100
+        };
+
+        this.speed = {
+            dx: 20,
+            dy: 20 
+        };
+
+        this.draw = this.draw.bind(this);
     }
 
-    // drawGumball(ctx) {
-
-    //     var x = canvas.width - 400;
-    //     var y = canvas.height - 350;
-    //     var ballRadius = 80;
-    //     var dx = 2;
-    //     var dy = -2;
-
-
-    //     ctx.beginPath();
-    //     ctx.arc(x, y, ballRadius, 0, Math.PI * 2, false);
-    //     ctx.fillStyle = "teal";
-    //     ctx.fill();
-    //     ctx.closePath();
-
-    //     // x += dx;
-    //     // y += dy;
-
-    // }
-
-    draw(ctx) {
-
-        // ctx.clearRect(0, 0, canvas.width, canvas.height);
-        // this.drawGumball(ctx);
-        var x = canvas.width - 400;
-        var y = canvas.height - 350;
-        var ballRadius = 80;
-        var dx = 2;
-        var dy = -2;
-
-
+    draw() {
+        const ctx = this.ctx;
+        const ballRadius = this.ballRadius;
+        const x = this.position.x;
+        const y = this.position.y;
+        debugger
+        ctx.clearRect(0, 0, this.gameWidth, this.gameHeight);
         ctx.beginPath();
         ctx.arc(x, y, ballRadius, 0, Math.PI * 2, false);
         ctx.fillStyle = "teal";
         ctx.fill();
         ctx.closePath();
+        
+    }
 
-        if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
-            dx = -dx;
-        }
-        if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
-            dy = -dy;
-        }
+    update() {
+        // values become NaN
+        // let x = this.position.x;
+        // let y = this.position.y;
+        // let dx = this.speed.x;
+        // let dy = this.speed.y;
 
-        x += dx;
-        y += dy;
+        if (this.position.x + this.speed.dx > this.gameWidth - this.ballRadius || this.position.x + this.speed.dx < this.ballRadius) {
+            this.speed.dx = -this.speed.dx;
+        };
+
+        if (this.position.y + this.speed.dy > this.gameHeight - this.ballRadius || this.position.y + this.speed.dy < this.ballRadius) {
+            this.speed.dy = -this.speed.dy;
+        };
+
+        this.position.x += this.speed.dx;
+        this.position.y += this.speed.dy;
+        debugger
+        // requestAnimationFrame(this.draw)
+        // setInterval(this.draw, 10);
     }
 
 }

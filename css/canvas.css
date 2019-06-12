@@ -4,7 +4,7 @@
 }
 
 canvas {
-    background: #eee;
+    background-image: url('../assets/images/background768x480.png');
     border: 1px solid black;
     display: block;
     margin: 0 auto;
