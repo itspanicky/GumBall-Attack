@@ -13,7 +13,7 @@ class Player {
         this.projectiles = [];
         this.totalProjectiles = 1;
         this.proPositionX = this.position.x + 10;
-        this.proPositionY = this.position.y;
+        this.proPositionY = this.position.y - 60;
         this.proWidth = 5;
         this.proHeight = 70;
         this.proSpeed = 10;
@@ -99,8 +99,7 @@ class Player {
         if (this.projectiles.length) {
             if (this.proPositionY + this.proSpeed < 0) {
                 this.projectiles = [];
-                this.proPositionY = this.position.y;
-                debugger
+                this.proPositionY = this.position.y - 60;
             } else {
                 this.proPositionY -= this.proSpeed;
                 this.drawProjectile();

@@ -1,14 +1,13 @@
+import Player from './player';
+
 class Gumball {
-    constructor(ctx, canvas) {
+    constructor(ctx, canvas, gumballRadius, gumballPosition) {
         this.ctx = ctx;
         this.canvas = canvas;
         
-        this.ballRadius = 80;
+        this.ballRadius = gumballRadius;
 
-        this.position = {
-            x: 100,
-            y: 100
-        };
+        this.position = gumballPosition;
 
         this.speed = {
             dx: 5,
@@ -17,6 +16,7 @@ class Gumball {
 
         this.draw = this.draw.bind(this);
         this.update = this.update.bind(this);
+
     }
 
     draw() {

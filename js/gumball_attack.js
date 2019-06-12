@@ -10,9 +10,23 @@ class GumBallAttack {
         this.gameWidth = canvas.width;
         this.gameHeight = canvas.height;
 
-        this.gumball = new Gumball(ctx, canvas);
+        this.gumballRadius = 80;
+        this.gumballPosition = {
+            x: 100,
+            y: 100
+        }
+        
+        this.gumball = new Gumball(ctx, canvas, this.gumballRadius, this.gumballPosition);
         this.player = new Player(ctx, canvas);
+
+        this.gumballs = [];
+        this.gumballs.push(this.gumball);
+
+        this.checkPlayerCollision = this.checkPlayerCollision.bind(this);
+        this.checkProjectileCollision = this.checkProjectileCollision.bind(this);
+
         setInterval(this.render.bind(this), 10);
+        
     }
 
     
@@ -28,26 +42,37 @@ class GumBallAttack {
 
         gumball.draw();
         gumball.update();
+        // gumball.checkCollision();
+        this.checkPlayerCollision();
+        this.checkProjectileCollision();
 
     }
 
-    // play() {
-    //     const ctx = this.ctx;
-    //     setInterval(() => {
-    //         const gumball = new Gumball(ctx);
-    //     }, 10)
-    // }
+    checkPlayerCollision() {
+        if (this.gumball.position.y + this.gumball.ballRadius == this.canvas.height &&
+            this.gumball.position.x + this.gumball.ballRadius >= this.player.position.x + 5 &&
+            this.gumball.position.x - this.gumball.ballRadius <= this.player.position.x + this.player.charWidth) {
+            debugger
+        }
+    }
 
-    // loop(timestamp) {
-    //     let dt = timestamp - this.lastTime;
-    //     this.lastTime = timestamp;
+    checkProjectileCollision() {
+            if (this.player.projectiles.length) {
+                if (this.player.proPositionX <= this.gumball.position.x + this.gumball.ballRadius &&
+                this.player.proPositionX >= this.gumball.position.x - this.gumball.ballRadius &&
+                this.player.proPositionY > this.gumball.position.y - this.gumball.ballRadius/2 && 
+                this.player.proPositionY < this.gumball.position.y + this.gumball.ballRadius/2) {
+                debugger
+            }
+        }
+    }
 
-    //     this.ctx.clearRect(0, 0, 650, 480);
-    //     this.player.update(dt);
-    //     this.player.draw(this.ctx);
-
-    //     requestAnimationFrame(this.loop);
-    // }
+    duplicate() {
+        if (this.gumball.ballRadius > 10) {
+            this.gumballs.push(Gumball(this.ctx, this.canvas, this.gumballRadius - 10, this.gumballPosition + 50));
+            this.gumballs.push(Gumball(this.ctx, this.canvas, this.gumballRadius - 10, this.gumballPosition - 50));
+        }
+    }
 
 }
 
