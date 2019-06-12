@@ -24,7 +24,8 @@ class GumBallAttack {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         player.draw();
         player.move();
-        
+        player.shoot();
+
         gumball.draw();
         gumball.update();
 
