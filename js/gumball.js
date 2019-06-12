@@ -1,9 +1,7 @@
-
 class Gumball {
     constructor(ctx, canvas) {
         this.ctx = ctx;
-        this.gameWidth = canvas.gameWidth;
-        this.gameHeight = canvas.gameHeight;
+        this.canvas = canvas;
         
         this.ballRadius = 80;
 
@@ -13,11 +11,12 @@ class Gumball {
         };
 
         this.speed = {
-            dx: 20,
-            dy: 20 
+            dx: 5,
+            dy: 5 
         };
 
         this.draw = this.draw.bind(this);
+        this.update = this.update.bind(this);
     }
 
     draw() {
@@ -25,8 +24,7 @@ class Gumball {
         const ballRadius = this.ballRadius;
         const x = this.position.x;
         const y = this.position.y;
-        debugger
-        ctx.clearRect(0, 0, this.gameWidth, this.gameHeight);
+        
         ctx.beginPath();
         ctx.arc(x, y, ballRadius, 0, Math.PI * 2, false);
         ctx.fillStyle = "teal";
@@ -34,27 +32,22 @@ class Gumball {
         ctx.closePath();
         
     }
-
+    
     update() {
-        // values become NaN
-        // let x = this.position.x;
-        // let y = this.position.y;
-        // let dx = this.speed.x;
-        // let dy = this.speed.y;
+        const canvas = this.canvas;
 
-        if (this.position.x + this.speed.dx > this.gameWidth - this.ballRadius || this.position.x + this.speed.dx < this.ballRadius) {
+        if (this.position.x + this.speed.dx > canvas.width - this.ballRadius || this.position.x + this.speed.dx < this.ballRadius) {
             this.speed.dx = -this.speed.dx;
         };
 
-        if (this.position.y + this.speed.dy > this.gameHeight - this.ballRadius || this.position.y + this.speed.dy < this.ballRadius) {
+        if (this.position.y + this.speed.dy > canvas.height - this.ballRadius || this.position.y + this.speed.dy < this.ballRadius) {
             this.speed.dy = -this.speed.dy;
         };
 
         this.position.x += this.speed.dx;
         this.position.y += this.speed.dy;
-        debugger
-        // requestAnimationFrame(this.draw)
-        // setInterval(this.draw, 10);
+
+        this.draw();
     }
 
 }

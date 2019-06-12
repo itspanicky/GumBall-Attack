@@ -4,7 +4,8 @@
 }
 
 canvas {
-    background-image: url('../assets/images/background768x480.png');
+    background-image: url('../assets/images/flat-night.png');
+    background-size: 970px;
     border: 1px solid black;
     display: block;
     margin: 0 auto;

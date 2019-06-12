@@ -11,13 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
     canvas.height = 480;
 
     const game = new GumBallAttack(ctx, canvas);
-    game.render();
     // ctx.clearRect(0, 0, 650, 480);
-    
-    // game.loop();
-    // setInterval(game.render(), 10);
-
-
+    game.render();
 
 
 

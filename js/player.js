@@ -1,4 +1,3 @@
-
 class Player {
     constructor(ctx, canvas) {
         this.ctx = ctx;
@@ -11,33 +10,61 @@ class Player {
             y: this.canvas.height - this.height
         }
 
-        // this.keys = [];
-        // document.addEventListener('keydown', (e) => { this.keys[e.keyCode] = true });
-        // document.addEventListener('keyup', (e) => { this.keys[e.keyCode] = false })
+        this.leftPressed = false;
+        this.rightPressed = false;
 
+        this.keyDownHandler = this.keyDownHandler.bind(this);
+        this.keyUpHandler = this.keyUpHandler.bind(this);
+
+        document.addEventListener("keydown", this.keyDownHandler, false);            // listen for key press
+        document.addEventListener("keyup", this.keyUpHandler, false); 
+
+        this.draw = this.draw.bind(this);
     }
 
-    // moveLeft() {
-    //     this.position.x + 2;
-    // }
+    keyDownHandler(e) {        // for key press
+        if (e.key == "Right" || e.key == "ArrowRight") {
+            this.rightPressed = true;
+        }
+        else if (e.key == "Left" || e.key == "ArrowLeft") {
+            this.leftPressed = true;
+        }
+    }   
 
-    // moveRight() {
-    //     this.position.x - 2;
-    // }
+    keyUpHandler(e) {          // for key release
+        if (e.key == "Right" || e.key == "ArrowRight") {
+            this.rightPressed = false;
+        }
+        else if (e.key == "Left" || e.key == "ArrowLeft") {
+            this.leftPressed = false;
+        }
+    }
 
     draw() {
         const ctx = this.ctx;
+        const canvas = this.canvas;
+
         ctx.beginPath();
         ctx.rect(this.position.x, this.position.y, this.width, this.height);
-        ctx.fillStyle = "Green";
+        ctx.fillStyle = "teal";
         ctx.fill();
         ctx.closePath();
     }
 
-    // update(dt) {
-    //     if (!dt) return;
-    //     this.position.x += 5 / dt;
-    // }
+    move() {
+        debugger
+        const canvas = this.canvas;
+
+        if (this.rightPressed && this.position.x < canvas.width - this.width) {
+            this.position.x += 7;
+
+        }
+        else if (this.leftPressed && this.position.x > 0) {
+            this.position.x -= 7;
+
+        }
+        this.draw();
+    }
 }
 
 export default Player;

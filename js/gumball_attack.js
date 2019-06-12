@@ -10,23 +10,23 @@ class GumBallAttack {
         this.gameWidth = canvas.width;
         this.gameHeight = canvas.height;
 
-        // this.lastTime = 0;
-        // this.loop = this.loop.bind(this);
-
         this.gumball = new Gumball(ctx, canvas);
         this.player = new Player(ctx, canvas);
+        setInterval(this.render.bind(this), 10);
     }
+
+    
 
     render() {
         let gumball = this.gumball;
         let player = this.player;
 
-        debugger
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         player.draw();
-        debugger
+        player.move();
+        
         gumball.draw();
-        // gumball.update();
-        // setInterval(gumball.update(), 10);
+        gumball.update();
 
     }
 
