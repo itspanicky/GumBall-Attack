@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     canvas.width = 650;
     canvas.height = 480;
 
-    const game = new GumBallAttack(ctx, canvas);
+    let game = new GumBallAttack(ctx, canvas);
 
     // preview???
     window.requestAnimationFrame(game.preview);
@@ -26,6 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // interval;
         window.cancelAnimationFrame(game.preview);
         window.requestAnimationFrame(game.render);
+        // if (game.lives === 0) {
+        //     window.cancelAnimationFrame(game.render);
+            
+        // }
     }
     
     gameStart.addEventListener("click", () => {

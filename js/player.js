@@ -2,9 +2,11 @@ class Player {
     constructor(ctx, canvas) {
         this.ctx = ctx;
         this.canvas = canvas;
-
-        this.charWidth = 30;
-        this.charHeight = 35;
+        this.timer = Date.now();
+        
+        this.status = "idle";
+        this.charWidth = 80;
+        this.charHeight = 80;
         this.position = {
             x: this.canvas.width / 2 - this.charWidth / 2,
             y: this.canvas.height - this.charHeight
@@ -30,17 +32,18 @@ class Player {
         document.addEventListener("keyup", this.keyUpHandler, false);
 
         this.draw = this.draw.bind(this);
+        // this.idleState = this.idleState.bind(this);
         this.drawProjectile = this.drawProjectile.bind(this);
     }
 
     keyDownHandler(e) {        // for key press
-        if (e.key == "Right" || e.key == "ArrowRight") {
+        if (this.status != "dead" && e.key == "Right" || e.key == "ArrowRight") {
             this.rightPressed = true;
         }
-        else if (e.key == "Left" || e.key == "ArrowLeft") {
+        else if (this.status != "dead" && e.key == "Left" || e.key == "ArrowLeft") {
             this.leftPressed = true;
         }
-        else if (e.keyCode == "32" && this.projectiles.length < this.totalProjectiles) {
+        else if (this.status != "dead" && e.keyCode == "32" && this.projectiles.length < this.totalProjectiles) {
             this.spacePressed = true;
             this.proPositionX = this.position.x + 10;
             this.projectiles.push([1]);
@@ -50,9 +53,11 @@ class Player {
     keyUpHandler(e) {          // for key release
         if (e.key == "Right" || e.key == "ArrowRight") {
             this.rightPressed = false;
+            this.status = "idle"
         }
         else if (e.key == "Left" || e.key == "ArrowLeft") {
             this.leftPressed = false;
+            this.status = "idle"
         }
         else if (e.keyCode == "32") {
             this.spacePressed = false;
@@ -61,25 +66,94 @@ class Player {
 
     draw() {
         const ctx = this.ctx;
-        ctx.beginPath();
-        ctx.rect(this.position.x, this.position.y, this.charWidth, this.charHeight);
-        ctx.fillStyle = "teal";
-        ctx.fill();
-        ctx.closePath();
+
+        let idle = new Image();
+        idle.src = "assets/images/avatar/Idle (1).png";
+        
+        let left = new Image();
+        left.src = "assets/images/avatar/Run (5) flipped.png";
+
+        let right = new Image();
+        right.src = "assets/images/avatar/Run (11).png";
+
+        let dead = new Image();
+        dead.src = "assets/images/avatar/Dead (14).png"
+
+        if (this.status === "left") {
+            ctx.drawImage(left, this.position.x, this.position.y, this.charWidth, this.charHeight);   
+        } else if (this.status === "right") {
+            ctx.drawImage(right, this.position.x, this.position.y, this.charWidth, this.charHeight);   
+        } else if (this.status === "dead") {
+            ctx.drawImage(dead, this.position.x, this.position.y, this.charWidth, this.charHeight);
+        } else {
+            ctx.drawImage(idle, this.position.x, this.position.y, this.charWidth, this.charHeight);
+        }
+
+        //     image.addEventListener("load", function() {
+        // })
+
+        // ctx.beginPath();
+        // ctx.rect(this.position.x, this.position.y, this.charWidth, this.charHeight);
+        // ctx.fillStyle = "teal";
+        // ctx.fill();
+        // ctx.closePath();
+
+        
     }
+
+    // idleState() {
+    //     const ctx = this.ctx;
+
+    //     let idle1 = new Image();
+    //     idle1.src = "assets/images/avatar/idle (1).png";
+
+    //     let idle2 = new Image();
+    //     idle1.src = "assets/images/avatar/idle (2).png";
+
+    //     let idle3 = new Image();
+    //     idle1.src = "assets/images/avatar/idle (3).png";
+
+    //     let idle4 = new Image();
+    //     idle1.src = "assets/images/avatar/idle (4).png";
+
+    //     let idle5 = new Image();
+    //     idle1.src = "assets/images/avatar/idle (5).png";
+
+    //     let idle6 = new Image();
+    //     idle1.src = "assets/images/avatar/idle (6).png";
+
+    //     let idle7 = new Image();
+    //     idle1.src = "assets/images/avatar/idle (7).png";
+
+    //     let idle8 = new Image();
+    //     idle1.src = "assets/images/avatar/idle (8).png";
+        
+
+    //     ctx.drawImage(idle1, this.position.x, this.position.y, this.charWidth, this.charHeight);
+    //     ctx.drawImage(idle2, this.position.x, this.position.y, this.charWidth, this.charHeight);
+    //     ctx.drawImage(idle3, this.position.x, this.position.y, this.charWidth, this.charHeight);
+    //     ctx.drawImage(idle4, this.position.x, this.position.y, this.charWidth, this.charHeight);
+    //     ctx.drawImage(idle5, this.position.x, this.position.y, this.charWidth, this.charHeight);
+    //     ctx.drawImage(idle6, this.position.x, this.position.y, this.charWidth, this.charHeight);
+    //     ctx.drawImage(idle7, this.position.x, this.position.y, this.charWidth, this.charHeight);
+    //     ctx.drawImage(idle8, this.position.x, this.position.y, this.charWidth, this.charHeight);
+
+    // }
 
     move() {
         const canvas = this.canvas;
-
-        if (this.rightPressed && this.position.x < canvas.width - this.charWidth - 7) {
-            this.position.x += 7;
-            
+        if (Date.now() - this.timer >= 700) {
+            if (this.rightPressed && this.position.x < canvas.width - this.charWidth + 25) {
+                this.status = "right"
+                this.position.x += 3;
+            }
+            else if (this.leftPressed && this.position.x > -25) {
+                this.status = "left"
+                this.position.x -= 3;
+                
+            }
+            this.draw();
         }
-        else if (this.leftPressed && this.position.x > 1) {
-            this.position.x -= 7;
-            
-        }
-        this.draw();
     }
 
     drawProjectile() {

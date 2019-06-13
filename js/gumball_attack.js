@@ -18,13 +18,15 @@ class GumBallAttack {
 
         this.lives = 3;
 
-        this.gumballSpeed = 2;
+        this.gumballSpeed = 1;
         
-        this.gumball = new Gumball(ctx, canvas, this.gumballRadius, this.gumballPosition, this.gumballSpeed);
+        // this.gumball = new Gumball(ctx, canvas, this.gumballRadius, this.gumballPosition, this.gumballSpeed);
         this.player = new Player(ctx, canvas);
 
         this.gumballs = [];
-        this.gumballs.push(this.gumball);
+        // this.gumballs.push(this.gumball);
+        this.gumballs.push(new Gumball(ctx, canvas, this.gumballRadius, this.gumballPosition, this.gumballSpeed));
+        // this.gumballs.push(new Gumball(ctx, canvas, this.gumballRadius, {x: 400, y: 300}, this.gumballSpeed));
 
         this.drawLives = this.drawLives.bind(this);
         this.checkCollision = this.checkCollision.bind(this);
@@ -54,14 +56,14 @@ class GumBallAttack {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         player.draw();
         player.move();
-        player.shoot();
-        this.drawLives();
-        
-        // this.gumballs.forEach(gumball => {
+        this.gumballs.forEach(gumball => {
         //     gumball.draw();
         //     gumball.update();
-        //     this.checkPlayerCollision(gumball);
-        // })
+            this.checkPlayerCollision(gumball);
+        })
+        
+        player.shoot();
+        this.drawLives();
         
         // this.checkCollision();
 
@@ -76,7 +78,7 @@ class GumBallAttack {
                 this.gumballs[i].draw();
                 this.gumballs[i].update();
                 
-                this.checkPlayerCollision(this.gumballs[i]);
+                // this.checkPlayerCollision(this.gumballs[i]);
                 
                 if (this.checkProjectileCollision(this.gumballs[i])) {
                     // delete this.gumballs[i];
@@ -86,7 +88,9 @@ class GumBallAttack {
                 };
 
             }
-        }
+        } 
+
+        // else --> next level?
         requestAnimationFrame(this.render)
     }
 
@@ -120,17 +124,27 @@ class GumBallAttack {
     }
 
     checkPlayerCollision(gumball) {
-        if (gumball.position.y + gumball.ballRadius == this.canvas.height &&
-            gumball.position.x + gumball.ballRadius >= this.player.position.x &&
-            gumball.position.x - gumball.ballRadius <= this.player.position.x + this.player.charWidth) {
-            this.lives--;
+        if (gumball.position.y + gumball.ballRadius >= this.player.position.y + 30 &&
+            gumball.position.x + gumball.ballRadius >= this.player.position.x + 15 &&
+            gumball.position.x - gumball.ballRadius <= this.player.position.x + this.player.charWidth - 50) {
+            gumball.speed.dy = -gumball.speed.dy;
+            gumball.position.y += gumball.speed.dy
+            if (Date.now() - this.player.timer >= 700 &&
+            this.player.status != "dead") {
+                this.lives--;
+                this.player.status = "dead";
+                this.player.timer = Date.now();
+            }
             debugger
             if (!this.lives) {   
+                this.player.status = "dead";
                 alert("GAME OVER");
                 document.location.reload();
                 
-                // const retryMenu = document.getElementById("retry-menu");
                 // const gameMenu = document.getElementById("game-menu")
+                // gameMenu.setAttribute("style", "visibility: hidden;");
+                // const retryMenu = document.getElementById("retry-menu");
+
             }
         }
     }
@@ -141,6 +155,7 @@ class GumBallAttack {
                 this.player.proPositionX >= gumball.position.x - gumball.ballRadius &&
                 this.player.proPositionY > gumball.position.y - gumball.ballRadius/2 && 
                 this.player.proPositionY < gumball.position.y + gumball.ballRadius/2) {
+                    this.ctx.clearRect(this.player.proPositionX, this.player.proPositionY, this.player.proWidth, this.player.proHeight);
                     return true;
             }
         }
@@ -170,8 +185,8 @@ class GumBallAttack {
     duplicate(gumball) {
         const postLeft = (this.player.proPositionX - gumball.ballRadius - 40 < 0) ? gumball.ballRadius * 2 : this.player.proPositionX - gumball.ballRadius - 10;
         const postRight = (this.player.proPositionX + gumball.ballRadius + 40 > this.canvas.width) ? this.canvas.width - gumball.ballRadius * 2 : this.player.proPositionX + gumball.ballRadius + 10;
-        if (gumball.ballRadius > 30) {
 
+        if (gumball.ballRadius > 30) {
             this.gumballs.push(new Gumball(this.ctx, this.canvas, gumball.ballRadius - 20, {x: postLeft, y: gumball.position.y}, -this.gumballSpeed));
             this.gumballs.push(new Gumball(this.ctx, this.canvas, gumball.ballRadius - 20, {x: postRight, y: gumball.position.y}, this.gumballSpeed));
         }

@@ -41,15 +41,12 @@ When the game is over, a replay button will render.
 
 ## Implementation and Timeline
 #### Day 1:
-- File setup
-- Board layout
-    - Background
-    - Sprites
-- Gumball rendering
+- Files setup
+- Learn OOP for canvas with javascript
 #### Day 2:
+- Gumball rendering
 - Avatar rendering and functionality
     - Movement
-- Gumball rendering
 #### Day 3:
 - Gumball functionality
     - Bounce
@@ -57,11 +54,18 @@ When the game is over, a replay button will render.
 - Projectile rendering and functionality
     - Collisions
 #### Day 4:
-- Score rendering
-- Finish game
+- Game logic
+    - Lives
+- Game menu
+    - Start
+    - Retry
+    - Next Level
 #### Day 5:
 - Style page
 - Bonus features
 ## Bonus features
 - item pick up for different projectiles
 - scoreboard save to database
+
+## Credit
+- Avatar - https://www.gameart2d.com/the-boy---free-sprites.html
