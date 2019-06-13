@@ -29,6 +29,13 @@
     padding-bottom: 5px;
 }
 
+.links {
+    display: flex;
+    flex-direction: row;
+    
+}
+
 .fab {
     font-size: 60px;
+    padding-left: 10px;
 }

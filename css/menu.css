@@ -9,9 +9,6 @@
     color: white;
     
     font-size: 30px;
-    
-    
-    
 }
 
 .start-menu {
@@ -35,4 +32,9 @@
 .start:hover {
     color: red;
     cursor: pointer;
+}
+
+
+.retry-menu {
+    display: none;
 }
