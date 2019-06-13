@@ -4,7 +4,7 @@ import Player from './player';
 
 
 class GumBallAttack {
-    constructor(ctx, canvas) {
+    constructor(ctx, canvas, level) {
         this.ctx = ctx;
         this.canvas = canvas;
         this.gameWidth = canvas.width;
@@ -27,17 +27,26 @@ class GumBallAttack {
         this.gumballs.push(this.gumball);
 
         this.drawLives = this.drawLives.bind(this);
+        this.checkCollision = this.checkCollision.bind(this);
         this.checkPlayerCollision = this.checkPlayerCollision.bind(this);
         this.checkProjectileCollision = this.checkProjectileCollision.bind(this);
         this.checkGumballCollision = this.checkGumballCollision.bind(this);
         this.duplicate = this.duplicate.bind(this);
-
-        var interval = setInterval(this.render.bind(this), 10);
-        interval;
+        this.render = this.render.bind(this);
+        this.preview = this.preview.bind(this);
+        // var interval = setInterval(this.render.bind(this), 10);
+        // interval;
         
     }
 
-    
+    preview() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.gumballs.forEach(gumball => {
+            gumball.draw();
+            gumball.update();
+        })
+        requestAnimationFrame(this.preview)
+    }
 
     render() {
         let player = this.player;
@@ -46,9 +55,24 @@ class GumBallAttack {
         player.draw();
         player.move();
         player.shoot();
+        this.drawLives();
+        
+        // this.gumballs.forEach(gumball => {
+        //     gumball.draw();
+        //     gumball.update();
+        //     this.checkPlayerCollision(gumball);
+        // })
+        
+        // this.checkCollision();
 
         if (this.gumballs.length) {
             for (let i = 0; i < this.gumballs.length; i++) {
+                for (let j = 0; j < this.gumballs.length; j++) {
+                    if (j != i) {
+                        this.checkGumballCollision(this.gumballs[i], this.gumballs[j]);
+                    }
+                }
+
                 this.gumballs[i].draw();
                 this.gumballs[i].update();
                 
@@ -58,19 +82,12 @@ class GumBallAttack {
                     // delete this.gumballs[i];
                     this.duplicate(this.gumballs[i]);
                     this.gumballs.splice(i,1);
-                    debugger
                     this.player.projectiles.splice(1,1)
                 };
 
-                for (let j = 0; j < this.gumballs.length; j++) {
-                    if (j !== i) {
-                        this.checkGumballCollision(this.gumballs[i], this.gumballs[j]);
-                    }
-                }
             }
         }
-        this.drawLives();
-        
+        requestAnimationFrame(this.render)
     }
 
     drawLives() {
@@ -82,17 +99,37 @@ class GumBallAttack {
         ctx.fillText("Lives: " + this.lives, canvas.width - 65, 20);
     }
 
+    checkCollision() {
+        if (this.gumballs.length) {
+            for (let i = 0; i < this.gumballs.length; i++) {
+                for (let j = 0; j < this.gumballs.length; j++) {
+                    if (j != i) {
+                        this.checkGumballCollision(this.gumballs[i], this.gumballs[j]);
+                    }
+                }
+                
+                if (this.checkProjectileCollision(this.gumballs[i])) {
+                    // delete this.gumballs[i];
+                    this.duplicate(this.gumballs[i]);
+                    this.gumballs.splice(i, 1);
+                    this.player.projectiles.splice(1, 1)
+                };
+
+            }
+        }
+    }
+
     checkPlayerCollision(gumball) {
         if (gumball.position.y + gumball.ballRadius == this.canvas.height &&
-            gumball.position.x + gumball.ballRadius >= this.player.position.x + 5 &&
+            gumball.position.x + gumball.ballRadius >= this.player.position.x &&
             gumball.position.x - gumball.ballRadius <= this.player.position.x + this.player.charWidth) {
-                this.lives--;
-                debugger
+            this.lives--;
+            debugger
             if (!this.lives) {   
                 alert("GAME OVER");
                 document.location.reload();
                 
-                // const lose = document.getElementById("lose");
+                // const retryMenu = document.getElementById("retry-menu");
                 // const gameMenu = document.getElementById("game-menu")
             }
         }
@@ -119,13 +156,13 @@ class GumBallAttack {
                 gumball2.speed.dy = -gumball2.speed.dy;
             }
             gumball1.speed.dx = -gumball1.speed.dx;
-            gumball1.position.x += gumball1.speed.dx;
-            gumball1.position.y += gumball1.speed.dy;
-
+            // gumball1.position.x += gumball1.speed.dx * 1.4;
+            // gumball1.position.y += gumball1.speed.dy * 1.4;
+            gumball1.update();
             gumball2.speed.dx = -gumball2.speed.dx;
-            gumball2.position.x += gumball2.speed.dx;
-            gumball2.position.y += gumball2.speed.dy;
-            debugger
+            // gumball2.position.x += gumball2.speed.dx * 1.4;
+            // gumball2.position.y += gumball2.speed.dy * 1.4;
+            gumball2.update();
             
         }
     }
