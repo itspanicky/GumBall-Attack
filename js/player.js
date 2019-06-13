@@ -17,6 +17,7 @@ class Player {
         this.proWidth = 5;
         this.proHeight = 70;
         this.proSpeed = 10;
+        this.proStatus = 1;
 
     
         this.leftPressed = false;
@@ -71,11 +72,11 @@ class Player {
     move() {
         const canvas = this.canvas;
 
-        if (this.rightPressed && this.position.x < canvas.width - this.charWidth) {
+        if (this.rightPressed && this.position.x < canvas.width - this.charWidth - 7) {
             this.position.x += 7;
             
         }
-        else if (this.leftPressed && this.position.x > 0) {
+        else if (this.leftPressed && this.position.x > 1) {
             this.position.x -= 7;
             
         }
@@ -85,7 +86,7 @@ class Player {
     drawProjectile() {
         const ctx = this.ctx;
 
-        if (this.projectiles.length) {
+        if (this.projectiles.length && this.proStatus == 1) {
             ctx.beginPath();
             ctx.rect(this.proPositionX, this.proPositionY, this.proWidth, this.proHeight);
             ctx.fillStyle = "black";
@@ -102,6 +103,7 @@ class Player {
                 this.proPositionY = this.position.y - 60;
             } else {
                 this.proPositionY -= this.proSpeed;
+                this.proStatus = 1;
                 this.drawProjectile();
             }
         }

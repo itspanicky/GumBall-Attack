@@ -5,3 +5,30 @@
     padding: 10px 0;
     z-index: -1;
 }
+
+.footer {
+    width: 650px;
+    height: 200px;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.instructions > * {
+    font-family: monospace;
+    font-size: 16px;
+    padding: 3px 0;
+}
+
+.instructions > ul {
+    padding-left: 20px;
+}
+
+.instructions > ul > li {
+    padding-bottom: 5px;
+}
+
+.fab {
+    font-size: 60px;
+}

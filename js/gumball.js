@@ -1,7 +1,7 @@
 import Player from './player';
 
 class Gumball {
-    constructor(ctx, canvas, gumballRadius, gumballPosition) {
+    constructor(ctx, canvas, gumballRadius, gumballPosition, gumballSpeed, gumballStatus) {
         this.ctx = ctx;
         this.canvas = canvas;
         
@@ -10,9 +10,11 @@ class Gumball {
         this.position = gumballPosition;
 
         this.speed = {
-            dx: 5,
-            dy: 5 
+            dx: gumballSpeed,
+            dy: -Math.abs(gumballSpeed) 
         };
+
+        this.status = gumballStatus;
 
         this.draw = this.draw.bind(this);
         this.update = this.update.bind(this);
@@ -25,11 +27,13 @@ class Gumball {
         const x = this.position.x;
         const y = this.position.y;
         
-        ctx.beginPath();
-        ctx.arc(x, y, ballRadius, 0, Math.PI * 2, false);
-        ctx.fillStyle = "teal";
-        ctx.fill();
-        ctx.closePath();
+        if (this.status == 1) {
+            ctx.beginPath();
+            ctx.arc(x, y, ballRadius, 0, Math.PI * 2, false);
+            ctx.fillStyle = "teal";
+            ctx.fill();
+            ctx.closePath();  
+        }
         
     }
     

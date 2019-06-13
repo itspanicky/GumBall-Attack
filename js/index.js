@@ -10,25 +10,28 @@ document.addEventListener("DOMContentLoaded", () => {
     canvas.width = 650;
     canvas.height = 480;
 
-    const game = new GumBallAttack(ctx, canvas);
-    // ctx.clearRect(0, 0, 650, 480);
-    game.render();
+    // const game = new GumBallAttack(ctx, canvas);
+    // // ctx.clearRect(0, 0, 650, 480);
+    // game.render();
 
 
 
 
 
     // to start a game
-    // const startGame = document.getElementById("start-game")
+    const gameStart = document.getElementById("start")
+    const gameMenu = document.getElementById("game-menu")
 
-    // startGame.addEventListener("click", () => {
-    //     playGame();
-    // })
+    const playGame = () => {
+        const game = new GumBallAttack(ctx, canvas);
+        game.render();
+    }
+    
+    gameStart.addEventListener("click", () => {
+        gameMenu.setAttribute("style", "visibility: hidden;");
+        playGame();
+    })
 
-    // const playGame = () => {
-    //     game = new GumBallAttack(ctx, GAME_WIDTH, GAME_HEIGHT);
-    //     game.play;
-    // }
 });
 
 

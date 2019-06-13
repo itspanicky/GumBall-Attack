@@ -3,24 +3,50 @@
 
 <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <title>GumBall Attack</title>
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/background.css">
+    <link rel="stylesheet" href="./css/menu.css">
     <link rel="stylesheet" href="./css/canvas.css">
     <script src="bundle.js"></script>
 </head>
 
 <body>
     <h1 class="title-text">GumBall Attack!</h1>
+    <section id="game-menu" class="game-menu">
+
+        <div id="start-menu" class="start-menu">
+            <h3>It's raining gumballs...</h3>
+            <h3>bouncing gumballs!</h3>
+            <button id="start" class="start">Start</button>
+        </div>
+    </section>
+    
+
     <div class="canvas-container">
         <canvas id="gumball-attack" width="650" height="480"></canvas>
         <!-- <script src="./js/index.js"></script> -->
     </div>
-    
-    <!-- <script>
-        // JavaScript code goes here
-    
-    </script> -->
+
+    <div class="footer">
+        
+        <div class="instructions">
+            <h3>How to play:</h3>
+            <ul>
+                <li>Dodge the gumball!</li>
+                <li>LEFT/RIGHT arrow keys to move</li>
+                <li>SPACEBAR to shoot</li>
+            </ul>
+        </div>
+        
+        <div class="about-me">
+            <ul>
+                <li><a href="https://github.com/itspanicky/GumBall-Attack"><i class="fab fa-github"></i></a></li>
+            </ul>
+        </div>
+    </div>
 
 </body>
 
