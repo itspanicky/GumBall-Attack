@@ -27,7 +27,7 @@ class Gumball {
         
         ctx.beginPath();
         ctx.arc(x, y, ballRadius, 0, Math.PI * 2, false);
-        ctx.fillStyle = "teal";
+        ctx.fillStyle = "#F08080";
         ctx.fill();
         ctx.closePath();  
         

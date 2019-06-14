@@ -4,11 +4,13 @@ import Player from './player';
 
 
 class GumBallAttack {
-    constructor(ctx, canvas, level) {
+    constructor(ctx, canvas) {
         this.ctx = ctx;
         this.canvas = canvas;
         this.gameWidth = canvas.width;
         this.gameHeight = canvas.height;
+
+        // this.music = new Audio("assets/sounds/Into-Battle.mp3");
 
         this.gumballRadius = 80;
         this.gumballPosition = {
@@ -31,6 +33,7 @@ class GumBallAttack {
 
         this.drawLives = this.drawLives.bind(this);
         this.drawLevel = this.drawLevel.bind(this);
+        // this.drawMusic = this.drawMusic.bind(this);
         this.checkCollision = this.checkCollision.bind(this);
         this.checkPlayerCollision = this.checkPlayerCollision.bind(this);
         this.checkProjectileCollision = this.checkProjectileCollision.bind(this);
@@ -46,6 +49,13 @@ class GumBallAttack {
         
     }
 
+    // drawMusic() {
+    //     this.music.play();
+    //     requestAnimationFrame(this.drawMusic)
+    // }
+
+
+
     preview() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.gumballs.forEach(gumball => {
@@ -60,12 +70,16 @@ class GumBallAttack {
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         player.draw();
-        if (player.status != "dead") {
+
+        if (this.player.moveable === 1) {
             player.move();
         }
+
+        if (this.player.moveable === 0) {
+            this.player.deadMsg();
+        }
+
         this.gumballs.forEach(gumball => {
-        //     gumball.draw();
-        //     gumball.update();
             this.checkPlayerCollision(gumball);
         })
         
@@ -142,33 +156,29 @@ class GumBallAttack {
     }
 
     checkPlayerCollision(gumball) {
-        if (gumball.position.y + gumball.ballRadius >= this.player.position.y + 30 &&
-            gumball.position.x + gumball.ballRadius >= this.player.position.x + 15 &&
-            gumball.position.x - gumball.ballRadius <= this.player.position.x + this.player.charWidth - 50) {
+        if (gumball.position.y + gumball.ballRadius >= this.player.position.y + 45 &&
+            gumball.position.x + gumball.ballRadius >= this.player.position.x + 20 &&
+            gumball.position.x - gumball.ballRadius <= this.player.position.x + this.player.charWidth - 20) {
             gumball.speed.dy = -gumball.speed.dy;
             gumball.position.y += gumball.speed.dy
-            if (Date.now() - this.player.timer >= 700 &&
-            this.player.status != "dead") {
+            debugger
+            if (Date.now() - this.player.timer >= 1000 &&
+            this.player.status != "down" && this.player.status != "dead") {
+                
                 this.lives--;
-                this.player.status = "dead";
+                this.player.status = "down";
                 this.player.timer = Date.now();
-                if (!this.lives) {   
+                if (this.lives <= 0) {   
+                    this.player.moveable = 0;
                     this.player.status = "dead";
-                    // alert("GAME OVER");
-                    // document.location.reload();
-                    // window.cancelAnimationFrame(this.render);
-                    // this.preview();
-                    // window.requestAnimationFrame(this.preview);
-                    // const gameMenu = document.getElementById("game-menu")
-                    // gameMenu.setAttribute("style", "visibility: hidden;");
-                    // this.gameOver();
+
                     const gameMenu = document.getElementById("game-menu");
                     gameMenu.setAttribute("style", "visibility: visible;");
+                    const startMenu = document.getElementById("start-menu");
+                    startMenu.setAttribute("style", "visibility: hidden");
                     const retryMenu = document.getElementById("retry-menu");
                     retryMenu.setAttribute("style", "visibility: visible;");
-                    // retryMenu.className = "retry-menu show";
                     
-                    debugger
                 }
             }
         }
@@ -178,10 +188,9 @@ class GumBallAttack {
             if (this.player.projectiles.length) {
                 if (this.player.proPositionX <= gumball.position.x + gumball.ballRadius &&
                 this.player.proPositionX >= gumball.position.x - gumball.ballRadius &&
-                this.player.proPositionY > gumball.position.y - gumball.ballRadius/2 && 
-                this.player.proPositionY < gumball.position.y + gumball.ballRadius/2) {
-                    this.ctx.clearRect(this.player.proPositionX, this.player.proPositionY, this.player.proWidth, this.player.proHeight);
-                    return true;
+                this.player.proPositionY > gumball.position.y - gumball.ballRadius/1.5 && 
+                this.player.proPositionY < gumball.position.y + gumball.ballRadius/1.5) {
+                return true;
             }
         }
     }

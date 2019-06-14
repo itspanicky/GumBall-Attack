@@ -4,6 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
     var canvas = document.getElementById("gumball-attack");
     var ctx = canvas.getContext("2d");
 
+    // var music = document.getElementById("audio");
+    // music.src = "assets/sounds/Into-Battle_v001.mp3";
+
+    
+
     // const GAME_WIDTH = 650;
     // const GAME_HEIGHT = 480;
 
@@ -13,9 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // preview
     let preview = new GumBallAttack(ctx, canvas);
     window.requestAnimationFrame(preview.preview);
+    // window.requestAnimationFrame(preview.drawMusic);
 
     const gameMenu = document.getElementById("game-menu");
     const gameStart = document.getElementById("start");
+    // const musicControl = document.getElementById("audio");
 
     const retryMenu = document.getElementById("retry-menu");
     const gameRetry = document.getElementById("retry");
@@ -46,6 +53,11 @@ document.addEventListener("DOMContentLoaded", () => {
         retryMenu.setAttribute("style", "visibility: hidden;");
         replayGame();
     })
+
+    // musicControl.addEventListener("click", () => {
+    //     pauseMusic();
+    // })
+
 });
 
 
