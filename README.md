@@ -1,5 +1,7 @@
 # GumBall Attack
 
+[Play]('https://itspanicky.github.io/GumBall-Attack/')
+
 ## Background and Overview
 GumBall Attack is a simple game with basic controls. The gameplay involves controlling a character left or right while dodging bouncing giant gumballs. The character can also shoot projectiles straight up, which on impact with a gumball will split the gumball into two smaller gumballs.
 

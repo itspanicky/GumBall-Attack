@@ -10,33 +10,42 @@ document.addEventListener("DOMContentLoaded", () => {
     canvas.width = 650;
     canvas.height = 480;
 
-    let game = new GumBallAttack(ctx, canvas);
+    // preview
+    let preview = new GumBallAttack(ctx, canvas);
+    window.requestAnimationFrame(preview.preview);
 
-    // preview???
-    window.requestAnimationFrame(game.preview);
+    const gameMenu = document.getElementById("game-menu");
+    const gameStart = document.getElementById("start");
 
-    const gameStart = document.getElementById("start")
-    const gameMenu = document.getElementById("game-menu")
-    const gameRetry = document.getElementById("retry")
+    const retryMenu = document.getElementById("retry-menu");
+    const gameRetry = document.getElementById("retry");
     
     // to start a game
     const playGame = () => {
+        let game = new GumBallAttack(ctx, canvas);
         game.render();
-        // var interval = setInterval(game.render, 10);
-        // interval;
-        window.cancelAnimationFrame(game.preview);
+        window.cancelAnimationFrame(preview.preview);
         window.requestAnimationFrame(game.render);
-        // if (game.lives === 0) {
-        //     window.cancelAnimationFrame(game.render);
-            
-        // }
+    }
+
+    const replayGame = () => {
+        let replay = new GumBallAttack(ctx, canvas);
+        replay.render();
+        // window.cancelAnimationFrame(game.preview);
+        window.requestAnimationFrame(replay.render);
     }
     
     gameStart.addEventListener("click", () => {
         gameMenu.setAttribute("style", "visibility: hidden;");
+        gameStart.setAttribute("style", "visibility: hidden;");
         playGame();
     })
 
+    gameRetry.addEventListener("click", () => {
+        gameMenu.setAttribute("style", "visibility: hidden;");
+        retryMenu.setAttribute("style", "visibility: hidden;");
+        replayGame();
+    })
 });
 
 

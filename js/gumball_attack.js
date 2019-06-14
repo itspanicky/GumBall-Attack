@@ -17,8 +17,9 @@ class GumBallAttack {
         }
 
         this.lives = 3;
+        this.level = 1;
 
-        this.gumballSpeed = 1;
+        this.gumballSpeed = 2;
         
         // this.gumball = new Gumball(ctx, canvas, this.gumballRadius, this.gumballPosition, this.gumballSpeed);
         this.player = new Player(ctx, canvas);
@@ -29,13 +30,17 @@ class GumBallAttack {
         // this.gumballs.push(new Gumball(ctx, canvas, this.gumballRadius, {x: 400, y: 300}, this.gumballSpeed));
 
         this.drawLives = this.drawLives.bind(this);
+        this.drawLevel = this.drawLevel.bind(this);
         this.checkCollision = this.checkCollision.bind(this);
         this.checkPlayerCollision = this.checkPlayerCollision.bind(this);
         this.checkProjectileCollision = this.checkProjectileCollision.bind(this);
         this.checkGumballCollision = this.checkGumballCollision.bind(this);
         this.duplicate = this.duplicate.bind(this);
+
         this.render = this.render.bind(this);
         this.preview = this.preview.bind(this);
+        // this.gameOver = this.gameOver.bind(this);
+        this.nextLevel = this.nextLevel.bind(this);
         // var interval = setInterval(this.render.bind(this), 10);
         // interval;
         
@@ -55,7 +60,9 @@ class GumBallAttack {
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         player.draw();
-        player.move();
+        if (player.status != "dead") {
+            player.move();
+        }
         this.gumballs.forEach(gumball => {
         //     gumball.draw();
         //     gumball.update();
@@ -64,6 +71,7 @@ class GumBallAttack {
         
         player.shoot();
         this.drawLives();
+        this.drawLevel();
         
         // this.checkCollision();
 
@@ -86,21 +94,31 @@ class GumBallAttack {
                     this.gumballs.splice(i,1);
                     this.player.projectiles.splice(1,1)
                 };
-
             }
         } 
+        else {
+            this.nextLevel();
+        }
 
         // else --> next level?
-        requestAnimationFrame(this.render)
+        requestAnimationFrame(this.render);
     }
 
     drawLives() {
         const ctx = this.ctx;
         const canvas = this.canvas;
 
-        ctx.font = "16px Arial";
+        ctx.font = "18px Arial";
         ctx.fillStyle = "#white";
-        ctx.fillText("Lives: " + this.lives, canvas.width - 65, 20);
+        ctx.fillText("Lives: " + this.lives, canvas.width - 75, 30);
+    }
+
+    drawLevel() {
+        const ctx = this.ctx;
+
+        ctx.font = "18px Arial";
+        ctx.fillStyle = "#white";
+        ctx.fillText("Level: " + this.level, 20, 30);
     }
 
     checkCollision() {
@@ -134,17 +152,24 @@ class GumBallAttack {
                 this.lives--;
                 this.player.status = "dead";
                 this.player.timer = Date.now();
-            }
-            debugger
-            if (!this.lives) {   
-                this.player.status = "dead";
-                alert("GAME OVER");
-                document.location.reload();
-                
-                // const gameMenu = document.getElementById("game-menu")
-                // gameMenu.setAttribute("style", "visibility: hidden;");
-                // const retryMenu = document.getElementById("retry-menu");
-
+                if (!this.lives) {   
+                    this.player.status = "dead";
+                    // alert("GAME OVER");
+                    // document.location.reload();
+                    // window.cancelAnimationFrame(this.render);
+                    // this.preview();
+                    // window.requestAnimationFrame(this.preview);
+                    // const gameMenu = document.getElementById("game-menu")
+                    // gameMenu.setAttribute("style", "visibility: hidden;");
+                    // this.gameOver();
+                    const gameMenu = document.getElementById("game-menu");
+                    gameMenu.setAttribute("style", "visibility: visible;");
+                    const retryMenu = document.getElementById("retry-menu");
+                    retryMenu.setAttribute("style", "visibility: visible;");
+                    // retryMenu.className = "retry-menu show";
+                    
+                    debugger
+                }
             }
         }
     }
@@ -194,6 +219,26 @@ class GumBallAttack {
 
     nextLevel() {
         this.gumballs.push(new Gumball(ctx, canvas, 80, this.gumballPosition, this.gumballSpeed));
+    }
+
+    // gameOver() {
+    //     // doesn't do anything
+    //     window.cancelAnimationFrame(this.render);
+    //     debugger
+    // }
+
+    nextLevel() {
+        const ctx = this.ctx;
+        const canvas = this.canvas;
+        // const time = Date.now();
+        // while (Date.now() < time + 5000 ) {
+        //     ctx.font = "40px Arial";
+        //     ctx.fillStyle = "#white";
+        //     ctx.fillText("Another Gumball...", canvas.width - 400, 300);
+        // }
+        this.level++;
+        this.gumballs.push(new Gumball(ctx, canvas, this.gumballRadius + 10, this.gumballPosition, this.gumballSpeed));
+        debugger
     }
 
 }
