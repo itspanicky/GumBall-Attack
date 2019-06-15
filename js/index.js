@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // var music = document.getElementById("audio");
     // music.src = "assets/sounds/Into-Battle_v001.mp3";
 
-    
+    // var music = new p5.SoundFile('assets/into-battle.mp3');
+    // music.play();
 
     // const GAME_WIDTH = 650;
     // const GAME_HEIGHT = 480;

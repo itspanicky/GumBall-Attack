@@ -161,7 +161,6 @@ class GumBallAttack {
             gumball.position.x - gumball.ballRadius <= this.player.position.x + this.player.charWidth - 20) {
             gumball.speed.dy = -gumball.speed.dy;
             gumball.position.y += gumball.speed.dy
-            debugger
             if (Date.now() - this.player.timer >= 1000 &&
             this.player.status != "down" && this.player.status != "dead") {
                 
@@ -233,7 +232,6 @@ class GumBallAttack {
     // gameOver() {
     //     // doesn't do anything
     //     window.cancelAnimationFrame(this.render);
-    //     debugger
     // }
 
     nextLevel() {
@@ -247,7 +245,6 @@ class GumBallAttack {
         // }
         this.level++;
         this.gumballs.push(new Gumball(ctx, canvas, this.gumballRadius + 10, this.gumballPosition, this.gumballSpeed));
-        debugger
     }
 
 }
