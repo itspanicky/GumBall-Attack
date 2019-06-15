@@ -46,7 +46,8 @@ class GumBallAttack {
         this.nextLevel = this.nextLevel.bind(this);
         // var interval = setInterval(this.render.bind(this), 10);
         // interval;
-        
+        this.music = document.getElementById("music");
+        this.music.load();
     }
 
     // drawMusic() {

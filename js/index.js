@@ -23,10 +23,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const gameMenu = document.getElementById("game-menu");
     const gameStart = document.getElementById("start");
-    // const musicControl = document.getElementById("audio");
-
     const retryMenu = document.getElementById("retry-menu");
     const gameRetry = document.getElementById("retry");
+    const musicControl = document.getElementById("music");
+    musicControl.onloadstart;
+    musicControl.autoplay = true;
     
     // to start a game
     const playGame = () => {
