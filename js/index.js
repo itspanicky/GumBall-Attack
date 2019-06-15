@@ -17,30 +17,33 @@ document.addEventListener("DOMContentLoaded", () => {
     canvas.height = 480;
 
     // preview
-    let preview = new GumBallAttack(ctx, canvas);
-    window.requestAnimationFrame(preview.preview);
-    // window.requestAnimationFrame(preview.drawMusic);
+    // let preview = new GumBallAttack(ctx, canvas);
+    // window.requestAnimationFrame(preview.preview);
+    let game = new GumBallAttack(ctx, canvas);
+    window.requestAnimationFrame(game.render);
 
     const gameMenu = document.getElementById("game-menu");
     const gameStart = document.getElementById("start");
     const retryMenu = document.getElementById("retry-menu");
     const gameRetry = document.getElementById("retry");
     const musicControl = document.getElementById("music");
-    musicControl.onloadstart;
+
     musicControl.autoplay = true;
+
     
     // to start a game
     const playGame = () => {
-        let game = new GumBallAttack(ctx, canvas);
+        game.start = true;
         game.render();
-        window.cancelAnimationFrame(preview.preview);
-        window.requestAnimationFrame(game.render);
+        // window.cancelAnimationFrame(preview.preview);
+        // window.requestAnimationFrame(game.render);
     }
 
     const replayGame = () => {
         let replay = new GumBallAttack(ctx, canvas);
+        window.cancelAnimationFrame(game.render);
+        replay.start = true;
         replay.render();
-        // window.cancelAnimationFrame(game.preview);
         window.requestAnimationFrame(replay.render);
     }
     

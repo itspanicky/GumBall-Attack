@@ -9,6 +9,8 @@ class GumBallAttack {
         this.canvas = canvas;
         this.gameWidth = canvas.width;
         this.gameHeight = canvas.height;
+        
+        this.start = false;
 
         // this.music = new Audio("assets/sounds/Into-Battle.mp3");
 
@@ -44,8 +46,6 @@ class GumBallAttack {
         this.preview = this.preview.bind(this);
         // this.gameOver = this.gameOver.bind(this);
         this.nextLevel = this.nextLevel.bind(this);
-        // var interval = setInterval(this.render.bind(this), 10);
-        // interval;
         this.music = document.getElementById("music");
         this.music.load();
     }
@@ -68,27 +68,24 @@ class GumBallAttack {
 
     render() {
         let player = this.player;
-
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        player.draw();
+        if (this.start === true) {
+            player.draw();
+            if (player.moveable === 1) {
+                player.move();
+            }
 
-        if (this.player.moveable === 1) {
-            player.move();
+            if (player.moveable === 0) {
+                player.deadMsg();
+            }
+            player.shoot();
+            this.drawLives();
+            this.drawLevel();
+
+            this.gumballs.forEach(gumball => {
+                this.checkPlayerCollision(gumball);
+            })
         }
-
-        if (this.player.moveable === 0) {
-            this.player.deadMsg();
-        }
-
-        this.gumballs.forEach(gumball => {
-            this.checkPlayerCollision(gumball);
-        })
-        
-        player.shoot();
-        this.drawLives();
-        this.drawLevel();
-        
-        // this.checkCollision();
 
         if (this.gumballs.length) {
             for (let i = 0; i < this.gumballs.length; i++) {
@@ -101,13 +98,10 @@ class GumBallAttack {
                 this.gumballs[i].draw();
                 this.gumballs[i].update();
                 
-                // this.checkPlayerCollision(this.gumballs[i]);
-                
                 if (this.checkProjectileCollision(this.gumballs[i])) {
-                    // delete this.gumballs[i];
                     this.duplicate(this.gumballs[i]);
                     this.gumballs.splice(i,1);
-                    this.player.projectiles.splice(1,1)
+                    player.projectiles.splice(1,1)
                 };
             }
         } 
@@ -115,7 +109,6 @@ class GumBallAttack {
             this.nextLevel();
         }
 
-        // else --> next level?
         requestAnimationFrame(this.render);
     }
 
@@ -229,11 +222,6 @@ class GumBallAttack {
     nextLevel() {
         this.gumballs.push(new Gumball(ctx, canvas, 80, this.gumballPosition, this.gumballSpeed));
     }
-
-    // gameOver() {
-    //     // doesn't do anything
-    //     window.cancelAnimationFrame(this.render);
-    // }
 
     nextLevel() {
         const ctx = this.ctx;
