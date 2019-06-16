@@ -87,7 +87,7 @@ class Player {
         idleRight.src = "assets/images/avatar/idle-right.png";
 
         let idleLeft = new Image();
-        idleLeft.src = "assets/images/avatar/idle-left.png";
+        idleLeft.src = "assets/images/avatar/left-idle.png";
         
         let left = new Image();
         left.src = "assets/images/avatar/run-left.png";

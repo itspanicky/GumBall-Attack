@@ -19,16 +19,19 @@ document.addEventListener("DOMContentLoaded", () => {
     // preview
     // let preview = new GumBallAttack(ctx, canvas);
     // window.requestAnimationFrame(preview.preview);
-    let game = new GumBallAttack(ctx, canvas);
-    window.requestAnimationFrame(game.render);
-
+    const musicControl = document.getElementById("music");
     const gameMenu = document.getElementById("game-menu");
     const gameStart = document.getElementById("start");
     const retryMenu = document.getElementById("retry-menu");
     const gameRetry = document.getElementById("retry");
-    const musicControl = document.getElementById("music");
 
+
+    let game = new GumBallAttack(ctx, canvas);
+    window.requestAnimationFrame(game.render);
+    
     musicControl.autoplay = true;
+    
+
 
     
     // to start a game

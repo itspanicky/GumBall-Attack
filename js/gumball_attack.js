@@ -46,27 +46,29 @@ class GumBallAttack {
         this.preview = this.preview.bind(this);
         // this.gameOver = this.gameOver.bind(this);
         this.nextLevel = this.nextLevel.bind(this);
+
         this.music = document.getElementById("music");
         this.music.load();
+        
     }
-
+    
     // drawMusic() {
-    //     this.music.play();
-    //     requestAnimationFrame(this.drawMusic)
-    // }
-
-
-
-    preview() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.gumballs.forEach(gumball => {
-            gumball.draw();
-            gumball.update();
-        })
-        requestAnimationFrame(this.preview)
-    }
-
-    render() {
+        //     this.music.play();
+        //     requestAnimationFrame(this.drawMusic)
+        // }
+        
+        
+        
+        preview() {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.gumballs.forEach(gumball => {
+                gumball.draw();
+                gumball.update();
+            })
+            requestAnimationFrame(this.preview)
+        }
+        
+        render() {
         let player = this.player;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         if (this.start === true) {
