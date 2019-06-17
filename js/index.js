@@ -34,6 +34,23 @@ document.addEventListener("DOMContentLoaded", () => {
         if (game.sound === true) {
             music.play();
         }
+
+        musicControl.addEventListener("click", () => {
+            if (game.sound === true) {
+                game.sound = false;
+                player.sound = false;
+                unmute.setAttribute("style", "visibility: visible;");
+                mute.setAttribute("style", "visibility: hidden;");
+                music.pause();
+            } else {
+                game.sound = true;
+                player.sound = true;
+                mute.setAttribute("style", "visibility: visible;");
+                unmute.setAttribute("style", "visibility: hidden;");
+                music.play();
+            }
+        })
+
     }
 
     const replayGame = () => {
@@ -44,6 +61,32 @@ document.addEventListener("DOMContentLoaded", () => {
         newPlayer.moveable = 1;
         replay.render();
         window.requestAnimationFrame(replay.render);
+        replay.sound = game.sound;
+        newPlayer.sound = player.sound;
+        game.sound = false;
+        player.sound = false;
+        
+
+        if (replay.sound === true) {
+            music.play();
+            debugger
+        }
+
+        musicControl.addEventListener("click", () => {
+            if (replay.sound === true && newPlayer.sound === true) {
+                replay.sound = false;
+                newPlayer.sound = false;
+                unmute.setAttribute("style", "visibility: visible;");
+                mute.setAttribute("style", "visibility: hidden;");
+                music.pause();
+            } else {
+                replay.sound = true;
+                newPlayer.sound = true;
+                mute.setAttribute("style", "visibility: visible;");
+                unmute.setAttribute("style", "visibility: hidden;");
+                music.play();
+            }
+        })
     }
     
     gameStart.addEventListener("click", () => {
@@ -58,19 +101,21 @@ document.addEventListener("DOMContentLoaded", () => {
         replayGame();
     })
 
-    musicControl.addEventListener("click", () => {
-        if (game.sound === true) {
-            game.sound = false;
-            unmute.setAttribute("style", "visibility: visible;");
-            mute.setAttribute("style", "visibility: hidden;");
-            music.pause();
-        } else {
-            game.sound = true;
-            mute.setAttribute("style", "visibility: visible;");
-            unmute.setAttribute("style", "visibility: hidden;");
-            music.play();
-        }
-    })
+    // musicControl.addEventListener("click", () => {
+    //     if (game.sound === true) {
+    //         game.sound = false;
+    //         player.sound = false;
+    //         unmute.setAttribute("style", "visibility: visible;");
+    //         mute.setAttribute("style", "visibility: hidden;");
+    //         music.pause();
+    //     } else {
+    //         game.sound = true;
+    //         player.sound = true;
+    //         mute.setAttribute("style", "visibility: visible;");
+    //         unmute.setAttribute("style", "visibility: hidden;");
+    //         music.play();
+    //     }
+    // })
 
 });
 

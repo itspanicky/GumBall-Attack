@@ -164,7 +164,9 @@ class GumBallAttack {
                 this.player.proPositionX >= gumball.position.x - gumball.ballRadius &&
                 this.player.proPositionY > gumball.position.y - gumball.ballRadius && 
                 this.player.proPositionY < gumball.position.y + gumball.ballRadius) {
-                this.pop.play();
+                if (this.sound === true) {
+                    this.pop.play();
+                }
                 return true;
             }
         }

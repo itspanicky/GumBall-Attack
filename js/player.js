@@ -4,7 +4,7 @@ class Player {
         this.ctx = ctx;
         this.canvas = canvas;
         this.timer = Date.now();
-        
+        this.sound = true;
         this.status = "idleRight";
         this.moveable = 0;
 
@@ -51,7 +51,9 @@ class Player {
                     this.leftPressed = true;
                 }
                 else if (e.keyCode == "32" && this.projectiles.length < this.totalProjectiles) {
-                    this.shootSound.play();
+                    if (this.sound === true) {
+                        this.shootSound.play();
+                    }
                     this.spacePressed = true;
                     this.proPositionX = this.position.x + 10;
                     this.projectiles.push([1]);
