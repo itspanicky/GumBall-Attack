@@ -1,6 +1,4 @@
 import Gumball from './gumball';
-import Player from './player';
-
 
 class GumBallAttack {
     constructor(ctx, canvas, player) {
@@ -53,7 +51,6 @@ class GumBallAttack {
         let player = this.player;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         if (this.start === true) {
-            debugger
             player.draw();
             if (player.moveable === 1 && player.status != "down") {
                 player.move();
@@ -200,9 +197,9 @@ class GumBallAttack {
         }
     }
 
-    nextLevel() {
-        this.gumballs.push(new Gumball(ctx, canvas, 80, this.gumballPosition, this.gumballSpeed));
-    }
+    // nextLevel() {
+    //     this.gumballs.push(new Gumball(ctx, canvas, 80, this.gumballPosition, this.gumballSpeed));
+    // }
 
     nextLevel() {
         const ctx = this.ctx;

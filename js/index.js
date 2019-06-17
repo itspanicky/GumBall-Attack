@@ -37,9 +37,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const replayGame = () => {
-        let replay = new GumBallAttack(ctx, canvas);
+        const newPlayer = new Player(ctx, canvas);
+        let replay = new GumBallAttack(ctx, canvas, newPlayer);
         window.cancelAnimationFrame(game.render);
         replay.start = true;
+        newPlayer.moveable = 1;
         replay.render();
         window.requestAnimationFrame(replay.render);
     }

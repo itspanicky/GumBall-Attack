@@ -44,7 +44,6 @@ class Player {
     keyDownHandler(e) {        // for key press
         if (this.status != "down" || Date.now() - this.timer > 700) {
             if (this.moveable === 1 && this.status != "dead") {
-                debugger
                 if (e.key == "Right" || e.key == "ArrowRight") {
                     this.rightPressed = true;
                 }
@@ -134,26 +133,13 @@ class Player {
 
     drawProjectile() {
         const ctx = this.ctx;
-        // let postX;
-        // if (this.projectiles.length && this.status === "right" || this.status === "idleRight") {
-        //     postX = this.proPositionX;
-        // } else if ((this.projectiles.length && this.status === "left" || this.status === "idleLeft")) {
-        //     postX = this.proPositionX;
-        // }
 
         let arrow = new Image();
         arrow.src = "assets/images/arrow.png";
         ctx.drawImage(arrow, this.proPositionX, this.proPositionY, this.proWidth, this.proHeight);
-
-        // ctx.beginPath();
-        // ctx.rect(postX, this.proPositionY, this.proWidth, this.proHeight);
-        // ctx.fillStyle = "black";
-        // ctx.fill();
-        // ctx.closePath();
     }
 
     shoot() {
-        debugger
         if (this.projectiles.length) {
             if (this.proPositionY + this.proSpeed < 0) {
                 this.projectiles = [];

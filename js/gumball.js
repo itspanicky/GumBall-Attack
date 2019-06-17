@@ -1,4 +1,3 @@
-import Player from './player';
 
 class Gumball {
     constructor(ctx, canvas, gumballRadius, gumballPosition, gumballSpeed) {
