@@ -16,7 +16,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const gameRetry = document.getElementById("retry");
     
     const music = document.getElementById("music");
-    const musicControl = document.getElementById("music-control")
+    const musicControl = document.getElementById("music-control");
+    const unmute = document.getElementById("unmute");
+    const mute = document.getElementById("mute")
 
     let game = new GumBallAttack(ctx, canvas);
     window.requestAnimationFrame(game.render);
@@ -26,7 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const playGame = () => {
         game.start = true;
         game.render();
-        music.play();
+        if (game.sound === true) {
+            music.play();
+        }
     }
 
     const replayGame = () => {
@@ -52,9 +56,13 @@ document.addEventListener("DOMContentLoaded", () => {
     musicControl.addEventListener("click", () => {
         if (game.sound === true) {
             game.sound = false;
+            unmute.setAttribute("style", "visibility: visible;");
+            mute.setAttribute("style", "visibility: hidden;");
             music.pause();
         } else {
             game.sound = true;
+            mute.setAttribute("style", "visibility: visible;");
+            unmute.setAttribute("style", "visibility: hidden;");
             music.play();
         }
     })

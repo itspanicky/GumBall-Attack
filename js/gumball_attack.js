@@ -190,8 +190,8 @@ class GumBallAttack {
     }
 
     duplicate(gumball) {
-        const postLeft = (this.player.proPositionX - gumball.ballRadius - 45 < 0) ? gumball.ballRadius * 2 : this.player.proPositionX - gumball.ballRadius - 15;
-        const postRight = (this.player.proPositionX + gumball.ballRadius + 45 > this.canvas.width) ? this.canvas.width - gumball.ballRadius * 2 : this.player.proPositionX + gumball.ballRadius + 15;
+        const postLeft = (this.player.proPositionX - gumball.ballRadius - 45 < 0) ? gumball.ballRadius * 2 : this.player.proPositionX - gumball.ballRadius - 20;
+        const postRight = (this.player.proPositionX + gumball.ballRadius + 45 > this.canvas.width) ? this.canvas.width - gumball.ballRadius * 2 : this.player.proPositionX + gumball.ballRadius + 20;
 
         if (gumball.ballRadius > 30) {
             this.gumballs.push(new Gumball(this.ctx, this.canvas, gumball.ballRadius - 20, {x: postLeft, y: gumball.position.y}, -this.gumballSpeed));
