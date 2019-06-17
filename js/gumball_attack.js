@@ -137,6 +137,9 @@ class GumBallAttack {
                     this.bounce.play();
                 }
                 this.lives--;
+                this.player.leftPressed = false;
+                this.player.rightPressed = false;
+                this.player.spacePressed = false;
                 this.player.status = "down";
                 this.player.timer = Date.now();
 

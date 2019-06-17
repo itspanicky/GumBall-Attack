@@ -19,12 +19,12 @@ The inspiration for GumBall Attack comes a game called Bubble Struggle, which I 
 ### MVP
 - Interactive starting screen
 - Player can move avatar
-- Avatar can shoot projectile that can collide with gumball
-- Gumballs can bounce along walls of app
+- Avatar can shoot projectile that can collide with gumballs
+- Gumballs can bounce along walls of game
 - Gumballs can split into a two smaller gumballs upon collision with a projectile
 - Gumballs can cause lost of life or game over upon collision with avatar 
 - Lives can be tracked
-- Score can be tracked
+- Level can be tracked
 
 ## Wireframe
 ![alt text](assets/images/Wireframe.png)

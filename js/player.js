@@ -42,13 +42,15 @@ class Player {
     }
 
     keyDownHandler(e) {        // for key press
-        if (this.status != "down" || Date.now() - this.timer > 700) {
+        if (this.status != "down" || Date.now() - this.timer > 300) {
             if (this.moveable === 1 && this.status != "dead") {
                 if (e.key == "Right" || e.key == "ArrowRight") {
                     this.rightPressed = true;
+                    this.leftPressed = false;
                 }
                 else if (e.key == "Left" || e.key == "ArrowLeft") {
                     this.leftPressed = true;
+                    this.rightPressed = false;
                 }
                 else if (e.keyCode == "32" && this.projectiles.length < this.totalProjectiles) {
                     if (this.sound === true) {
@@ -63,7 +65,7 @@ class Player {
     }   
 
     keyUpHandler(e) {          // for key release
-        if (this.status != "down" || Date.now() - this.timer > 700) {
+        if (this.status != "down" || Date.now() - this.timer > 300) {
             if (this.moveable === 1 && this.status != "dead") {
                 if (e.key == "Right" || e.key == "ArrowRight") {
                     this.rightPressed = false;
@@ -117,7 +119,7 @@ class Player {
     move() {
         const canvas = this.canvas;
         if (this.moveable === 1) {
-            if (Date.now() - this.timer >= 1000 || this.status != "dead") {
+            if (Date.now() - this.timer >= 700 || this.status != "dead") {
                 if (this.rightPressed && this.position.x < canvas.width - this.charWidth) {
                     this.status = "right"
                     this.position.x += 3.5;

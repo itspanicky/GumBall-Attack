@@ -69,7 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (replay.sound === true) {
             music.play();
-            debugger
         }
 
         musicControl.addEventListener("click", () => {
