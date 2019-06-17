@@ -35,21 +35,21 @@ document.addEventListener("DOMContentLoaded", () => {
             music.play();
         }
 
-        musicControl.addEventListener("click", () => {
-            if (game.sound === true) {
-                game.sound = false;
-                player.sound = false;
-                unmute.setAttribute("style", "visibility: visible;");
-                mute.setAttribute("style", "visibility: hidden;");
-                music.pause();
-            } else {
-                game.sound = true;
-                player.sound = true;
-                mute.setAttribute("style", "visibility: visible;");
-                unmute.setAttribute("style", "visibility: hidden;");
-                music.play();
-            }
-        })
+        // musicControl.addEventListener("click", () => {
+        //     if (game.sound === true) {
+        //         game.sound = false;
+        //         player.sound = false;
+        //         unmute.setAttribute("style", "visibility: visible;");
+        //         mute.setAttribute("style", "visibility: hidden;");
+        //         music.pause();
+        //     } else {
+        //         game.sound = true;
+        //         player.sound = true;
+        //         mute.setAttribute("style", "visibility: visible;");
+        //         unmute.setAttribute("style", "visibility: hidden;");
+        //         music.play();
+        //     }
+        // })
 
     }
 
@@ -101,21 +101,21 @@ document.addEventListener("DOMContentLoaded", () => {
         replayGame();
     })
 
-    // musicControl.addEventListener("click", () => {
-    //     if (game.sound === true) {
-    //         game.sound = false;
-    //         player.sound = false;
-    //         unmute.setAttribute("style", "visibility: visible;");
-    //         mute.setAttribute("style", "visibility: hidden;");
-    //         music.pause();
-    //     } else {
-    //         game.sound = true;
-    //         player.sound = true;
-    //         mute.setAttribute("style", "visibility: visible;");
-    //         unmute.setAttribute("style", "visibility: hidden;");
-    //         music.play();
-    //     }
-    // })
+    musicControl.addEventListener("click", () => {
+        if (game.sound === true) {
+            game.sound = false;
+            player.sound = false;
+            unmute.setAttribute("style", "visibility: visible;");
+            mute.setAttribute("style", "visibility: hidden;");
+            music.pause();
+        } else {
+            game.sound = true;
+            player.sound = true;
+            mute.setAttribute("style", "visibility: visible;");
+            unmute.setAttribute("style", "visibility: hidden;");
+            music.play();
+        }
+    })
 
 });
 
