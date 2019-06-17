@@ -3,7 +3,7 @@ import Player from './player';
 
 
 class GumBallAttack {
-    constructor(ctx, canvas) {
+    constructor(ctx, canvas, player) {
         this.ctx = ctx;
         this.canvas = canvas;
         this.gameWidth = canvas.width;
@@ -24,7 +24,8 @@ class GumBallAttack {
         this.gumballSpeed = 2;
         
         // this.gumball = new Gumball(ctx, canvas, this.gumballRadius, this.gumballPosition, this.gumballSpeed);
-        this.player = new Player(ctx, canvas);
+        // this.player = new Player(ctx, canvas);
+        this.player = player;
 
         this.gumballs = [];
         // this.gumballs.push(this.gumball);
@@ -52,15 +53,16 @@ class GumBallAttack {
         let player = this.player;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         if (this.start === true) {
+            debugger
             player.draw();
             if (player.moveable === 1 && player.status != "down") {
                 player.move();
+                player.shoot();
             }
 
             if (player.moveable === 0) {
                 player.deadMsg();
             }
-            player.shoot();
             this.drawLives();
             this.drawLevel();
 
@@ -154,7 +156,6 @@ class GumBallAttack {
                     startMenu.setAttribute("style", "visibility: hidden");
                     const retryMenu = document.getElementById("retry-menu");
                     retryMenu.setAttribute("style", "visibility: visible;");
-                    
                 }
             }
         }

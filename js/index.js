@@ -1,4 +1,5 @@
 import GumBallAttack from './gumball_attack';
+import Player from './player';
 
 document.addEventListener("DOMContentLoaded", () => {
     var canvas = document.getElementById("gumball-attack");
@@ -20,13 +21,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const unmute = document.getElementById("unmute");
     const mute = document.getElementById("mute")
 
-    let game = new GumBallAttack(ctx, canvas);
+    let player = new Player(ctx, canvas);
+    let game = new GumBallAttack(ctx, canvas, player);
     window.requestAnimationFrame(game.render);
 
     
     // to start a game
     const playGame = () => {
         game.start = true;
+        player.moveable = 1;
         game.render();
         if (game.sound === true) {
             music.play();

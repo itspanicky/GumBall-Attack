@@ -6,6 +6,7 @@
 canvas {
     background-image: url('../assets/images/flat-night.png');
     background-size: 970px;
+    /* background-image: url('../assets/images/background768x480.png'); */
     border: 1px solid black;
     display: block;
     margin: 0 auto;

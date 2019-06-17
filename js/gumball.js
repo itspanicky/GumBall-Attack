@@ -6,7 +6,6 @@ class Gumball {
         this.canvas = canvas;
         
         this.ballRadius = gumballRadius;
-
         this.position = gumballPosition;
 
         this.speed = {
@@ -44,12 +43,11 @@ class Gumball {
             this.speed.dy = -this.speed.dy;
         };
 
-        this.position.x += this.speed.dx;
-        this.position.y += this.speed.dy;
+        this.position.x += this.speed.dx * 1.1;
+        this.position.y += this.speed.dy * 1.1;
 
         this.draw();
     }
-
 }
 
 export default Gumball;

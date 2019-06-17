@@ -6,7 +6,7 @@ class Player {
         this.timer = Date.now();
         
         this.status = "idleRight";
-        this.moveable = 1;
+        this.moveable = 0;
 
         this.charWidth = 50;
         this.charHeight = 80;
@@ -44,6 +44,7 @@ class Player {
     keyDownHandler(e) {        // for key press
         if (this.status != "down" || Date.now() - this.timer > 700) {
             if (this.moveable === 1 && this.status != "dead") {
+                debugger
                 if (e.key == "Right" || e.key == "ArrowRight") {
                     this.rightPressed = true;
                 }
@@ -152,10 +153,11 @@ class Player {
     }
 
     shoot() {
+        debugger
         if (this.projectiles.length) {
             if (this.proPositionY + this.proSpeed < 0) {
                 this.projectiles = [];
-                this.proPositionY = this.position.y - 60;
+                this.proPositionY = this.position.y - 30;
             } else {
                 this.proPositionY -= this.proSpeed;
                 this.proPositionX = this.proPositionX;
