@@ -15,20 +15,17 @@ class GumBallAttack {
             x: 100,
             y: 100
         }
-
+        
+        this.player = player;
         this.lives = 3;
         this.level = 1;
 
         this.gumballSpeed = 2;
         
-        // this.gumball = new Gumball(ctx, canvas, this.gumballRadius, this.gumballPosition, this.gumballSpeed);
-        // this.player = new Player(ctx, canvas);
-        this.player = player;
 
         this.gumballs = [];
-        // this.gumballs.push(this.gumball);
+
         this.gumballs.push(new Gumball(ctx, canvas, this.gumballRadius, this.gumballPosition, this.gumballSpeed));
-        // this.gumballs.push(new Gumball(ctx, canvas, this.gumballRadius, {x: 400, y: 300}, this.gumballSpeed));
 
         this.drawLives = this.drawLives.bind(this);
         this.drawLevel = this.drawLevel.bind(this);
@@ -187,21 +184,18 @@ class GumBallAttack {
             gumball2.update();
             
         }
+        
     }
 
     duplicate(gumball) {
         const postLeft = (this.player.proPositionX - gumball.ballRadius - 45 < 0) ? gumball.ballRadius * 2 : this.player.proPositionX - gumball.ballRadius - 20;
-        const postRight = (this.player.proPositionX + gumball.ballRadius + 45 > this.canvas.width) ? this.canvas.width - gumball.ballRadius * 2 : this.player.proPositionX + gumball.ballRadius + 20;
+        const postRight = (this.player.proPositionX + gumball.ballRadius + 45 > this.canvas.width) ? this.canvas.width + gumball.ballRadius * 2 : this.player.proPositionX + gumball.ballRadius + 20;
 
-        if (gumball.ballRadius > 30) {
+        if (gumball.ballRadius > 20) {
             this.gumballs.push(new Gumball(this.ctx, this.canvas, gumball.ballRadius - 20, {x: postLeft, y: gumball.position.y}, -this.gumballSpeed));
             this.gumballs.push(new Gumball(this.ctx, this.canvas, gumball.ballRadius - 20, {x: postRight, y: gumball.position.y}, this.gumballSpeed));
         }
     }
-
-    // nextLevel() {
-    //     this.gumballs.push(new Gumball(ctx, canvas, 80, this.gumballPosition, this.gumballSpeed));
-    // }
 
     nextLevel() {
         const ctx = this.ctx;
