@@ -1,3 +1,4 @@
+
 class Player {
     constructor(ctx, canvas) {
         this.ctx = ctx;
@@ -10,7 +11,7 @@ class Player {
         this.charWidth = 50;
         this.charHeight = 80;
         this.position = {
-            x: this.canvas.width / 2 - this.charWidth / 2,
+            x: this.canvas.width / 2.5,
             y: this.canvas.height - this.charHeight
         }
 
@@ -18,8 +19,8 @@ class Player {
         this.totalProjectiles = 1;
         this.proPositionX = this.position.x + 10;
         this.proPositionY = this.position.y - 60;
-        this.proWidth = 5;
-        this.proHeight = 70;
+        this.proWidth = 10;
+        this.proHeight = 80;
         this.proSpeed = 5;
 
     
@@ -34,50 +35,47 @@ class Player {
         document.addEventListener("keyup", this.keyUpHandler, false);
 
         this.draw = this.draw.bind(this);
-        // this.idleState = this.idleState.bind(this);
         this.drawProjectile = this.drawProjectile.bind(this);
+
+        this.shootSound = new Audio("./assets/sounds/bow-fire.mp3");
+
     }
 
     keyDownHandler(e) {        // for key press
-        if (this.status === "down") {
-            if (Date.now() - this.timer > 1000) this.status = "idleRight"
+        if (this.status != "down" || Date.now() - this.timer > 700) {
+            if (this.moveable === 1 && this.status != "dead") {
+                if (e.key == "Right" || e.key == "ArrowRight") {
+                    this.rightPressed = true;
+                }
+                else if (e.key == "Left" || e.key == "ArrowLeft") {
+                    this.leftPressed = true;
+                }
+                else if (e.keyCode == "32" && this.projectiles.length < this.totalProjectiles) {
+                    this.shootSound.play();
+                    this.spacePressed = true;
+                    this.proPositionX = this.position.x + 10;
+                    this.projectiles.push([1]);
+                }
+            }
         }
-
-        if (this.moveable === 1 && this.status != "dead") {
-            if (e.key == "Right" || e.key == "ArrowRight") {
-                this.rightPressed = true;
-            }
-            else if (e.key == "Left" || e.key == "ArrowLeft") {
-                this.leftPressed = true;
-            }
-            else if (e.keyCode == "32" && this.projectiles.length < this.totalProjectiles) {
-                this.spacePressed = true;
-                this.proPositionX = this.position.x + 10;
-                this.projectiles.push([1]);
-            }
-        }
-        
     }   
 
     keyUpHandler(e) {          // for key release
-        if (this.status === "down") {
-            if (Date.now() - this.timer > 1000) this.status = "idleRight"
-        }
-
-        if (this.moveable === 1 && this.status != "dead") {
-            if (e.key == "Right" || e.key == "ArrowRight") {
-                this.rightPressed = false;
-                this.status = "idleRight"
-            }
-            else if (e.key == "Left" || e.key == "ArrowLeft") {
-                this.leftPressed = false;
-                this.status = "idleLeft"
-            }
-            else if (e.keyCode == "32") {
-                this.spacePressed = false;
+        if (this.status != "down" || Date.now() - this.timer > 700) {
+            if (this.moveable === 1 && this.status != "dead") {
+                if (e.key == "Right" || e.key == "ArrowRight") {
+                    this.rightPressed = false;
+                    this.status = "idleRight"
+                }
+                else if (e.key == "Left" || e.key == "ArrowLeft") {
+                    this.leftPressed = false;
+                    this.status = "idleLeft"
+                }
+                else if (e.keyCode == "32") {
+                    this.spacePressed = false;
+                }
             }
         }
-        
     }
 
     draw() {
@@ -94,9 +92,6 @@ class Player {
 
         let right = new Image();
         right.src = "assets/images/avatar/run-right.png";
-
-        // let down = new Image();
-        // down.src = "assets/images/avatar/down.png";
 
         let dead = new Image();
         dead.src = "assets/images/avatar/dead.png"
@@ -117,56 +112,17 @@ class Player {
         
     }
 
-    // idleState() {
-    //     const ctx = this.ctx;
-
-    //     let idle1 = new Image();
-    //     idle1.src = "assets/images/avatar/idle (1).png";
-
-    //     let idle2 = new Image();
-    //     idle1.src = "assets/images/avatar/idle (2).png";
-
-    //     let idle3 = new Image();
-    //     idle1.src = "assets/images/avatar/idle (3).png";
-
-    //     let idle4 = new Image();
-    //     idle1.src = "assets/images/avatar/idle (4).png";
-
-    //     let idle5 = new Image();
-    //     idle1.src = "assets/images/avatar/idle (5).png";
-
-    //     let idle6 = new Image();
-    //     idle1.src = "assets/images/avatar/idle (6).png";
-
-    //     let idle7 = new Image();
-    //     idle1.src = "assets/images/avatar/idle (7).png";
-
-    //     let idle8 = new Image();
-    //     idle1.src = "assets/images/avatar/idle (8).png";
-        
-
-    //     ctx.drawImage(idle1, this.position.x, this.position.y, this.charWidth, this.charHeight);
-    //     ctx.drawImage(idle2, this.position.x, this.position.y, this.charWidth, this.charHeight);
-    //     ctx.drawImage(idle3, this.position.x, this.position.y, this.charWidth, this.charHeight);
-    //     ctx.drawImage(idle4, this.position.x, this.position.y, this.charWidth, this.charHeight);
-    //     ctx.drawImage(idle5, this.position.x, this.position.y, this.charWidth, this.charHeight);
-    //     ctx.drawImage(idle6, this.position.x, this.position.y, this.charWidth, this.charHeight);
-    //     ctx.drawImage(idle7, this.position.x, this.position.y, this.charWidth, this.charHeight);
-    //     ctx.drawImage(idle8, this.position.x, this.position.y, this.charWidth, this.charHeight);
-
-    // }
-
     move() {
         const canvas = this.canvas;
         if (this.moveable === 1) {
             if (Date.now() - this.timer >= 1000 || this.status != "dead") {
                 if (this.rightPressed && this.position.x < canvas.width - this.charWidth) {
                     this.status = "right"
-                    this.position.x += 3;
+                    this.position.x += 3.5;
                 }
                 else if (this.leftPressed && this.position.x > 0) {
                     this.status = "left"
-                    this.position.x -= 3;
+                    this.position.x -= 3.5;
                     
                 }
                 this.draw();
@@ -177,18 +133,22 @@ class Player {
 
     drawProjectile() {
         const ctx = this.ctx;
-        let postX;
-        if (this.projectiles.length && this.status === "right" || this.status === "idleRight") {
-            postX = this.proPositionX;
-        } else if ((this.projectiles.length && this.status === "left" || this.status === "idleLeft")) {
-            postX = this.proPositionX;
-        }
+        // let postX;
+        // if (this.projectiles.length && this.status === "right" || this.status === "idleRight") {
+        //     postX = this.proPositionX;
+        // } else if ((this.projectiles.length && this.status === "left" || this.status === "idleLeft")) {
+        //     postX = this.proPositionX;
+        // }
 
-        ctx.beginPath();
-        ctx.rect(postX, this.proPositionY, this.proWidth, this.proHeight);
-        ctx.fillStyle = "black";
-        ctx.fill();
-        ctx.closePath();
+        let arrow = new Image();
+        arrow.src = "assets/images/arrow.png";
+        ctx.drawImage(arrow, this.proPositionX, this.proPositionY, this.proWidth, this.proHeight);
+
+        // ctx.beginPath();
+        // ctx.rect(postX, this.proPositionY, this.proWidth, this.proHeight);
+        // ctx.fillStyle = "black";
+        // ctx.fill();
+        // ctx.closePath();
     }
 
     shoot() {
@@ -207,7 +167,7 @@ class Player {
     deadMsg() {
         const ctx = this.ctx;
 
-        ctx.font = "16px Arial";
+        ctx.font = "18px Arial";
         ctx.fillStyle = "#DC143C";
         ctx.fillText("I dead...", this.position.x, 425);
     }

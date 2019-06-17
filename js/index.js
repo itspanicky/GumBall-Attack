@@ -4,42 +4,29 @@ document.addEventListener("DOMContentLoaded", () => {
     var canvas = document.getElementById("gumball-attack");
     var ctx = canvas.getContext("2d");
 
-    // var music = document.getElementById("audio");
-    // music.src = "assets/sounds/Into-Battle_v001.mp3";
-
-    // var music = new p5.SoundFile('assets/into-battle.mp3');
-    // music.play();
-
     // const GAME_WIDTH = 650;
     // const GAME_HEIGHT = 480;
 
     canvas.width = 650;
     canvas.height = 480;
 
-    // preview
-    // let preview = new GumBallAttack(ctx, canvas);
-    // window.requestAnimationFrame(preview.preview);
-    const musicControl = document.getElementById("music");
     const gameMenu = document.getElementById("game-menu");
     const gameStart = document.getElementById("start");
     const retryMenu = document.getElementById("retry-menu");
     const gameRetry = document.getElementById("retry");
-
+    
+    const music = document.getElementById("music");
+    const musicControl = document.getElementById("music-control")
 
     let game = new GumBallAttack(ctx, canvas);
     window.requestAnimationFrame(game.render);
-    
-    musicControl.autoplay = true;
-    
-
 
     
     // to start a game
     const playGame = () => {
         game.start = true;
         game.render();
-        // window.cancelAnimationFrame(preview.preview);
-        // window.requestAnimationFrame(game.render);
+        music.play();
     }
 
     const replayGame = () => {
@@ -62,9 +49,15 @@ document.addEventListener("DOMContentLoaded", () => {
         replayGame();
     })
 
-    // musicControl.addEventListener("click", () => {
-    //     pauseMusic();
-    // })
+    musicControl.addEventListener("click", () => {
+        if (game.sound === true) {
+            game.sound = false;
+            music.pause();
+        } else {
+            game.sound = true;
+            music.play();
+        }
+    })
 
 });
 
