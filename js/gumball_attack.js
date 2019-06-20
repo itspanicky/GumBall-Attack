@@ -44,15 +44,15 @@ class GumBallAttack {
         
     }   
         
-        render() {
+    render() {
         let player = this.player;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         if (this.start === true) {
             player.draw();
             if (player.moveable === 1 && player.status != "down") {
                 player.move();
-                player.shoot();
             }
+            player.shoot();
 
             if (player.moveable === 0) {
                 player.deadMsg();
@@ -76,16 +76,17 @@ class GumBallAttack {
                 this.gumballs[i].draw();
                 this.gumballs[i].update();
                 
-                if (this.checkProjectileCollision(this.gumballs[i])) {
+                if (this.checkProjectileCollision(this.gumballs[i]) && player.status != "dead") {
+                    
                     this.duplicate(this.gumballs[i]);
                     this.gumballs.splice(i,1);
                     player.projectiles.splice(1,1)
                 };
             }
-        } 
-        else {
+        } else {
             this.nextLevel();
         }
+        
         requestAnimationFrame(this.render);
     }
 
@@ -160,14 +161,13 @@ class GumBallAttack {
 
     checkProjectileCollision(gumball) {
             if (this.player.projectiles.length) {
-                if (this.player.proPositionX <= gumball.position.x + gumball.ballRadius &&
-                this.player.proPositionX >= gumball.position.x - gumball.ballRadius &&
-                this.player.proPositionY > gumball.position.y - gumball.ballRadius && 
-                this.player.proPositionY < gumball.position.y + gumball.ballRadius) {
-                if (this.sound === true) {
-                    this.pop.play();
-                }
+                if (this.player.proPositionX < gumball.position.x + gumball.ballRadius - 4 &&
+                this.player.proPositionX > gumball.position.x - gumball.ballRadius + 4 &&
+                this.player.proPositionY > gumball.position.y - gumball.ballRadius - 6 && 
+                this.player.proPositionY < gumball.position.y + gumball.ballRadius - 4) {
+                debugger
                 return true;
+                
             }
         }
     }
@@ -182,9 +182,12 @@ class GumBallAttack {
                 gumball2.speed.dy = -gumball2.speed.dy;
             }
             gumball1.speed.dx = -gumball1.speed.dx;
-            gumball1.update();
+            gumball1.position.x += gumball1.speed.dx;
+            gumball1.position.y += gumball1.speed.dy;
+
             gumball2.speed.dx = -gumball2.speed.dx;
-            gumball2.update();
+            gumball2.position.x += gumball2.speed.dx;
+            gumball2.position.y += gumball2.speed.dy;
             
         }
         
@@ -194,7 +197,12 @@ class GumBallAttack {
         const postLeft = (this.player.proPositionX - gumball.ballRadius - 45 < 0) ? gumball.ballRadius * 2 : this.player.proPositionX - gumball.ballRadius - 20;
         const postRight = (this.player.proPositionX + gumball.ballRadius + 45 > this.canvas.width) ? this.canvas.width + gumball.ballRadius * 2 : this.player.proPositionX + gumball.ballRadius + 20;
 
-        if (gumball.ballRadius > 20) {
+        if (this.sound === true) {
+            this.pop.play();
+        }
+
+        if (gumball.ballRadius > 30) {
+            
             this.gumballs.push(new Gumball(this.ctx, this.canvas, gumball.ballRadius - 20, {x: postLeft, y: gumball.position.y}, -this.gumballSpeed));
             this.gumballs.push(new Gumball(this.ctx, this.canvas, gumball.ballRadius - 20, {x: postRight, y: gumball.position.y}, this.gumballSpeed));
         }

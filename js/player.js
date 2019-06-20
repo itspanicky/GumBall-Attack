@@ -18,9 +18,9 @@ class Player {
         this.projectiles = [];
         this.totalProjectiles = 1;
         this.proPositionX = this.position.x + 10;
-        this.proPositionY = this.position.y - 60;
-        this.proWidth = 10;
-        this.proHeight = 80;
+        this.proPositionY = canvas.height;
+        this.proWidth = 18;
+        this.proHeight = 70;
         this.proSpeed = 5;
 
     
@@ -42,7 +42,7 @@ class Player {
     }
 
     keyDownHandler(e) {        // for key press
-        if (this.status != "down" || Date.now() - this.timer > 300) {
+        if (this.status != "down" && Date.now() - this.timer > 300) { 
             if (this.moveable === 1 && this.status != "dead") {
                 if (e.key == "Right" || e.key == "ArrowRight") {
                     this.rightPressed = true;
@@ -56,6 +56,7 @@ class Player {
                     if (this.sound === true) {
                         this.shootSound.play();
                     }
+                    
                     this.spacePressed = true;
                     this.proPositionX = this.position.x + 10;
                     this.projectiles.push([1]);
@@ -76,6 +77,7 @@ class Player {
                     this.status = "idleLeft"
                 }
                 else if (e.keyCode == "32") {
+                    
                     this.spacePressed = false;
                 }
             }
@@ -118,24 +120,25 @@ class Player {
 
     move() {
         const canvas = this.canvas;
-        if (this.moveable === 1) {
-            if (Date.now() - this.timer >= 700 || this.status != "dead") {
-                if (this.rightPressed && this.position.x < canvas.width - this.charWidth) {
+        // if (this.moveable === 1) {
+        //     if (Date.now() - this.timer >= 700 || this.status != "dead") {
+                if (this.rightPressed && this.position.x < canvas.width - this.charWidth - 15) {
                     this.status = "right"
                     this.position.x += 3.5;
                 }
-                else if (this.leftPressed && this.position.x > 0) {
+                else if (this.leftPressed && this.position.x > 0 + 15) {
                     this.status = "left"
                     this.position.x -= 3.5;
                     
                 }
                 this.draw();
-            }
-        }
+        //     }
+        // }
         
     }
 
     drawProjectile() {
+        
         const ctx = this.ctx;
 
         let arrow = new Image();
@@ -148,7 +151,9 @@ class Player {
             if (this.proPositionY + this.proSpeed < 0) {
                 this.projectiles = [];
                 this.proPositionY = this.position.y - 30;
+                
             } else {
+                
                 this.proPositionY -= this.proSpeed;
                 this.proPositionX = this.proPositionX;
                 this.drawProjectile();

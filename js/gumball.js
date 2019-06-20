@@ -34,16 +34,24 @@ class Gumball {
     update() {
         const canvas = this.canvas;
 
-        if (this.position.x + this.speed.dx > canvas.width - this.ballRadius || this.position.x + this.speed.dx < this.ballRadius) {
+        if (this.position.x + this.speed.dx > canvas.width - this.ballRadius) {
             this.speed.dx = -this.speed.dx;
-        };
+            this.position.x = this.canvas.width - this.ballRadius
+        } else if (this.position.x + this.speed.dx < this.ballRadius) {
+            this.speed.dx = -this.speed.dx;
+            this.position.x = this.ballRadius;
+        }
 
-        if (this.position.y + this.speed.dy > canvas.height - this.ballRadius || this.position.y + this.speed.dy < this.ballRadius) {
+        if (this.position.y + this.speed.dy > canvas.height - this.ballRadius) {
             this.speed.dy = -this.speed.dy;
-        };
+            this.position.y = canvas.height - this.ballRadius;
+        } else if (this.position.y + this.speed.dy < this.ballRadius) {
+            this.speed.dy = -this.speed.dy;
+            this.position.y = this.ballRadius;
+        }
 
-        this.position.x += this.speed.dx * 1.1;
-        this.position.y += this.speed.dy * 1.1;
+        this.position.x += this.speed.dx;
+        this.position.y += this.speed.dy;
 
         this.draw();
     }
