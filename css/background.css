@@ -1,3 +1,4 @@
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -63,12 +64,18 @@
     z-index: 10;
 }
 
-.fab {
+.fab, .fa-user-circle {
     font-size: 60px;
     padding-left: 15px;
 }
 
 .fab:hover {
+    cursor: pointer;
+    color: salmon;
+    z-index: 10;
+}
+
+.fa-user-circle:hover {
     cursor: pointer;
     color: salmon;
     z-index: 10;
