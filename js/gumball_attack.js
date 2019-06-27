@@ -175,7 +175,7 @@ class GumBallAttack {
         let dx = gumball1.position.x - gumball2.position.x;
         let dy = gumball1.position.y - gumball2.position.y;
         let distance = Math.sqrt((dx * dx) + (dy * dy));
-        if (distance <= gumball1.ballRadius + gumball2.ballRadius) {
+        if (distance < gumball1.ballRadius + gumball2.ballRadius) {
             if (gumball1.speed.dy * gumball2.speed.dy < 0) {
                 gumball1.speed.dy = -gumball1.speed.dy;
                 gumball2.speed.dy = -gumball2.speed.dy;
