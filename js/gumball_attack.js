@@ -20,7 +20,7 @@ class GumBallAttack {
         this.lives = 3;
         this.level = 1;
 
-        this.gumballSpeed = 2;
+        this.gumballSpeed = 1.5;
         
 
         this.gumballs = [];
@@ -30,7 +30,7 @@ class GumBallAttack {
         this.drawLives = this.drawLives.bind(this);
         this.drawLevel = this.drawLevel.bind(this);
 
-        this.checkCollision = this.checkCollision.bind(this);
+        // this.checkCollision = this.checkCollision.bind(this);
         this.checkPlayerCollision = this.checkPlayerCollision.bind(this);
         this.checkProjectileCollision = this.checkProjectileCollision.bind(this);
         this.checkGumballCollision = this.checkGumballCollision.bind(this);
@@ -107,23 +107,23 @@ class GumBallAttack {
         ctx.fillText("Level: " + this.level, 20, 30);
     }
 
-    checkCollision() {
-        if (this.gumballs.length) {
-            for (let i = 0; i < this.gumballs.length; i++) {
-                for (let j = 0; j < this.gumballs.length; j++) {
-                    if (j != i) {
-                        this.checkGumballCollision(this.gumballs[i], this.gumballs[j]);
-                    }
-                }
+    // checkCollision() {
+    //     if (this.gumballs.length) {
+    //         for (let i = 0; i < this.gumballs.length; i++) {
+    //             // for (let j = 0; j < this.gumballs.length; j++) {
+    //             //     if (j != i) {
+    //             //         this.checkGumballCollision(this.gumballs[i], this.gumballs[j]);
+    //             //     }
+    //             // }
                 
-                if (this.checkProjectileCollision(this.gumballs[i])) {
-                    this.duplicate(this.gumballs[i]);
-                    this.gumballs.splice(i, 1);
-                    this.player.projectiles.splice(1, 1)
-                };
-            }
-        }
-    }
+    //             if (this.checkProjectileCollision(this.gumballs[i])) {
+    //                 this.duplicate(this.gumballs[i]);
+    //                 this.gumballs.splice(i, 1);
+    //                 this.player.projectiles.splice(1, 1)
+    //             };
+    //         }
+    //     }
+    // }
 
     checkPlayerCollision(gumball) {
         if (gumball.position.y + gumball.ballRadius >= this.player.position.y + 40 &&
@@ -163,9 +163,8 @@ class GumBallAttack {
             if (this.player.projectiles.length) {
                 if (this.player.proPositionX < gumball.position.x + gumball.ballRadius - 4 &&
                 this.player.proPositionX > gumball.position.x - gumball.ballRadius + 4 &&
-                this.player.proPositionY > gumball.position.y - gumball.ballRadius && 
-                this.player.proPositionY < gumball.position.y + gumball.ballRadius - 5) {
-                debugger
+                this.player.proPositionY > gumball.position.y - gumball.ballRadius - this.player.proHeight && 
+                this.player.proPositionY < gumball.position.y + gumball.ballRadius) {
                 return true;
                 
             }
@@ -176,11 +175,20 @@ class GumBallAttack {
         let dx = gumball1.position.x - gumball2.position.x;
         let dy = gumball1.position.y - gumball2.position.y;
         let distance = Math.sqrt((dx * dx) + (dy * dy));
-        if (distance < gumball1.ballRadius + gumball2.ballRadius) {
+        if (distance <= gumball1.ballRadius + gumball2.ballRadius) {
             if (gumball1.speed.dy * gumball2.speed.dy < 0) {
                 gumball1.speed.dy = -gumball1.speed.dy;
                 gumball2.speed.dy = -gumball2.speed.dy;
             }
+
+            if (gumball1.position.x + gumball1.ballRadius < gumball2.position.x && 
+                gumball1.position.x + gumball1.ballRadius > gumball2.position.x - gumball2.ballRadius) {
+                gumball1.position.x = gumball2.position.x - gumball2.ballRadius - gumball1.ballRadius
+            } else if (gumball1.position.x - gumball1.ballRadius > gumball2.position.x &&
+                gumball1.position.x - gumball1.ballRadius < gumball2.position.x + gumball2.ballRadius) {
+                gumball1.position.x = gumball2.position.x + gumball2.ballRadius + gumball1.ballRadius
+            }
+
             gumball1.speed.dx = -gumball1.speed.dx;
             gumball1.position.x += gumball1.speed.dx;
             gumball1.position.y += gumball1.speed.dy;
@@ -212,7 +220,8 @@ class GumBallAttack {
         const ctx = this.ctx;
         const canvas = this.canvas;
         this.level++;
-        this.gumballs.push(new Gumball(ctx, canvas, this.gumballRadius + 20, this.gumballPosition, this.gumballSpeed));
+        this.gumballRadius += 20
+        this.gumballs.push(new Gumball(ctx, canvas, this.gumballRadius, this.gumballPosition, this.gumballSpeed));
     }
 }
 

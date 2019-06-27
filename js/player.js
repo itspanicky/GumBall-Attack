@@ -21,7 +21,7 @@ class Player {
         this.proPositionY = canvas.height;
         this.proWidth = 18;
         this.proHeight = 70;
-        this.proSpeed = 5;
+        this.proSpeed = 4;
 
     
         this.leftPressed = false;
@@ -45,14 +45,17 @@ class Player {
         if (this.status != "down" && Date.now() - this.timer > 300) { 
             if (this.moveable === 1 && this.status != "dead") {
                 if (e.key == "Right" || e.key == "ArrowRight") {
+                    e.preventDefault();
                     this.rightPressed = true;
                     this.leftPressed = false;
                 }
                 else if (e.key == "Left" || e.key == "ArrowLeft") {
+                    e.preventDefault();
                     this.leftPressed = true;
                     this.rightPressed = false;
                 }
                 else if (e.keyCode == "32" && this.projectiles.length < this.totalProjectiles) {
+                    e.preventDefault();
                     if (this.sound === true) {
                         this.shootSound.play();
                     }
@@ -69,15 +72,17 @@ class Player {
         if (this.status != "down" || Date.now() - this.timer > 300) {
             if (this.moveable === 1 && this.status != "dead") {
                 if (e.key == "Right" || e.key == "ArrowRight") {
+                    e.preventDefault();
                     this.rightPressed = false;
                     this.status = "idleRight"
                 }
                 else if (e.key == "Left" || e.key == "ArrowLeft") {
+                    e.preventDefault();
                     this.leftPressed = false;
                     this.status = "idleLeft"
                 }
                 else if (e.keyCode == "32") {
-                    
+                    e.preventDefault();
                     this.spacePressed = false;
                 }
             }
