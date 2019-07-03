@@ -1,9 +1,11 @@
-# GumBall Attack
+# GumBall Attack!
 
 [Play]('https://itspanicky.github.io/GumBall-Attack/')
 
+#### Gumball Attack! is built using HTML5 Canvas and Vanilla Javascript based on object-oriented principles. Web Audio API is incorporated to add sound effects for a more enjoyable gameplay. Webpack is used to bundle all scripts into a single source.
+
 ## Background and Overview
-GumBall Attack is a simple game with basic controls. The gameplay involves controlling a character left or right while dodging bouncing giant gumballs. The character can also shoot projectiles straight up, which on impact with a gumball will split the gumball into two smaller gumballs.
+GumBall Attack is a simple arcade game with basic controls. The gameplay involves controlling a character left or right while dodging bouncing giant gumballs. The character can also shoot projectiles straight up, which on impact with a gumball will split the gumball into two smaller gumballs.
 
 Although a seemingly easy concept, GumBall Attack becomes more difficult as there are more bouncing gumballs.
 
@@ -24,7 +26,7 @@ The inspiration for GumBall Attack comes a game called Bubble Struggle, which I 
 - Gumballs can split into a two smaller gumballs upon collision with a projectile
 - Gumballs can cause lost of life or game over upon collision with avatar 
 - Lives can be tracked
-- Level can be tracked
+- Levels can be tracked
 
 ## Wireframe
 ![alt text](assets/images/Wireframe.png)
