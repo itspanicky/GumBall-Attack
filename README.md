@@ -1,6 +1,6 @@
 # GumBall Attack!
 
-[Play]('https://itspanicky.github.io/GumBall-Attack/')
+[Play](https://itspanicky.github.io/GumBall-Attack/)
 
 #### Gumball Attack! is built using HTML5 Canvas and Vanilla Javascript based on object-oriented principles. Web Audio API is incorporated to add sound effects for a more enjoyable gameplay. Webpack is used to bundle all scripts into a single source.
 
