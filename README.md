@@ -4,6 +4,8 @@
 
 #### Gumball Attack! is built using HTML5 Canvas and Vanilla Javascript based on object-oriented principles. Web Audio API is incorporated to add sound effects for a more enjoyable gameplay. Webpack is used to bundle all scripts into a single source.
 
+![alt text](https://github.com/itspanicky/GumBall-Attack/blob/master/assets/images/game-gif.gif)
+
 ## Background and Overview
 GumBall Attack is a simple arcade game with basic controls. The gameplay involves controlling a character left or right while dodging bouncing giant gumballs. The character can also shoot projectiles straight up, which on impact with a gumball will split the gumball into two smaller gumballs.
 
