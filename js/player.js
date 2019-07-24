@@ -125,20 +125,16 @@ class Player {
 
     move() {
         const canvas = this.canvas;
-        // if (this.moveable === 1) {
-        //     if (Date.now() - this.timer >= 700 || this.status != "dead") {
-                if (this.rightPressed && this.position.x < canvas.width - this.charWidth - 15) {
-                    this.status = "right"
-                    this.position.x += 3.5;
-                }
-                else if (this.leftPressed && this.position.x > 0 + 15) {
-                    this.status = "left"
-                    this.position.x -= 3.5;
-                    
-                }
-                this.draw();
-        //     }
-        // }
+
+        if (this.rightPressed && this.position.x < canvas.width - this.charWidth - 15) {
+            this.status = "right"
+            this.position.x += 3.5;
+        }
+        else if (this.leftPressed && this.position.x > 0 + 15) {
+            this.status = "left"
+            this.position.x -= 3.5;
+        }
+        this.draw();
         
     }
 

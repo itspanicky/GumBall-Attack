@@ -107,24 +107,6 @@ class GumBallAttack {
         ctx.fillText("Level: " + this.level, 20, 30);
     }
 
-    // checkCollision() {
-    //     if (this.gumballs.length) {
-    //         for (let i = 0; i < this.gumballs.length; i++) {
-    //             // for (let j = 0; j < this.gumballs.length; j++) {
-    //             //     if (j != i) {
-    //             //         this.checkGumballCollision(this.gumballs[i], this.gumballs[j]);
-    //             //     }
-    //             // }
-                
-    //             if (this.checkProjectileCollision(this.gumballs[i])) {
-    //                 this.duplicate(this.gumballs[i]);
-    //                 this.gumballs.splice(i, 1);
-    //                 this.player.projectiles.splice(1, 1)
-    //             };
-    //         }
-    //     }
-    // }
-
     checkPlayerCollision(gumball) {
         if (gumball.position.y + gumball.ballRadius >= this.player.position.y + 40 &&
             gumball.position.x + gumball.ballRadius >= this.player.position.x + 10 &&
@@ -210,7 +192,6 @@ class GumBallAttack {
         }
 
         if (gumball.ballRadius > 20) {
-            
             this.gumballs.push(new Gumball(this.ctx, this.canvas, gumball.ballRadius - 20, {x: postLeft, y: gumball.position.y}, -this.gumballSpeed));
             this.gumballs.push(new Gumball(this.ctx, this.canvas, gumball.ballRadius - 20, {x: postRight, y: gumball.position.y}, this.gumballSpeed));
         }
